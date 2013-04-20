@@ -10,7 +10,7 @@ score he/she receives.  Play through up to three levels to reach the castle.
 
 ##Layout
 The Layout is depicted in the picture link below:
-![alt text](~/game_okhulusi/GamePictures/Layout.jpeg "Game Layout")
+![alt text](GamePictures/Layout.jpeg "Game Layout")
 
 ## In Game Objects
 #### Object 1: Sharks
@@ -63,5 +63,4 @@ Quits the game.
 Restarts the game.
 ### Help Button
 Shows how to play the game.
-```
 
