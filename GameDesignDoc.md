@@ -4,7 +4,7 @@
 
 ## Objective
 Lilla the mermaid princess needs your help to escape the evils in the sea that will stop at nothing to capture her before
-she gets to her castle!  The objective of the game is to help save Ariel by clearing her path of dangerous obstacles and 
+she gets to her castle!  The objective of the game is to help save Lilla by clearing her path of dangerous obstacles and 
 controlling her character to avoid the various sharks and eels chasing her.  The longer a player survives, the higher the 
 score he/she receives.  Play through up to three levels to reach the castle.
 
