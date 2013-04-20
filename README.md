@@ -1,12 +1,12 @@
 # Game - Programming Assignments Private Repository
 ### Student Information
-  + Name: Tommy Trojan
-  + USC Email: ttrojan@usc.edu
-  + USC ID: 0123456789
+  + Name: Omar Khulusi
+  + USC Email: okhulusi@usc.edu
+  + USC ID: 6231912549
 
 ### Game Information
-  + Game Name: myAwsomeGame
-  + Game Description: One sentence game description
+  + Game Name: Under The Deep Blue Sea
+  + Game Description: Help Lilla get to the castle, clearing and avoiding the dangers in her path.
   + [Game Design Doc](GameDesignDoc.md)
 
 
