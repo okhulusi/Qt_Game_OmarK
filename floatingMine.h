@@ -1,3 +1,4 @@
+/*
 #ifndef FLOATING_MINE_H
 #define FLOATING_MINE_H
 
@@ -13,3 +14,5 @@ class FloatingMine: public GameItem {
 		int y_;
 };
 #endif
+
+*/

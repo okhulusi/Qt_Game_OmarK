@@ -1,3 +1,4 @@
+/*
 #include "shark.h"
 
 using namespace std;
@@ -18,3 +19,4 @@ void act(int delayTime){
 void attack(int waitTime, int speed){
 
 }
+*/

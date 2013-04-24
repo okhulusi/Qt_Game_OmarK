@@ -1,3 +1,4 @@
+/*
 #ifndef SHARK_H
 #define #SHARK_H
 
@@ -18,3 +19,4 @@ class Shark : public GameItem{
 		int y_;
 };
 #endif
+*/

@@ -1,3 +1,4 @@
+/*
 #include "clamPowerUp.h"
 
 ClamPowerUp:: ClamPowerUp(){
@@ -12,3 +13,5 @@ ClamPowerUp:: ~ClamPowerUp(){
 void ClamPowerUp:: act(int delayTime){
 	
 }
+
+*/

@@ -1,3 +1,4 @@
+/*
 #ifndef CLAM_POWERUP_H
 #define CLAM_POWERUP_H
 
@@ -14,3 +15,5 @@ class ClamPowerUp : public GameItem {
 		int y_;
 };
 #endif
+
+*/

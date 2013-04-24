@@ -1,3 +1,4 @@
+/*
 #ifndef BUBBLE_POWERUP_H
 #define BUBBLE_POWERUP_H
 
@@ -14,3 +15,5 @@ class BubblePowerUp : public GameItem {
 		int y_;
 };
 #endif
+
+*/

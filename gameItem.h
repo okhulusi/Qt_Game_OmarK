@@ -1,3 +1,4 @@
+/*
 #ifndef GAME_ITEM_H
 #define GAME_ITEM_H
 
@@ -31,3 +32,5 @@ int GameItem:: setY(int y){
 	y_ = y;
 }
 #endif
+
+*/

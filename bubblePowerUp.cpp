@@ -1,3 +1,5 @@
+/*
+
 #include "bubblePowerUp.h"
 
 BubblePowerUp:: BubblePowerUp(int x){
@@ -12,3 +14,5 @@ BubblePowerUp:: ~BubblePowerUp(){
 void BubblePowerUp:: act(int delayTime){
 
 }
+
+*/

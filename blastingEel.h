@@ -1,3 +1,4 @@
+/*
 #ifndef BLASTING_EEL_H
 #define BLASTING_EEL_H
 
@@ -16,3 +17,5 @@ class BlastingEel : public GameItem {
 	
 };
 #endif
+
+*/

@@ -1,3 +1,4 @@
+/*
 #include "floatingMine.h"
 
 using namespace std;
@@ -19,3 +20,5 @@ void FloatingMine:: act(int delayTime){
 void FloatingMine:: MousePressedEvent(Event *e){
 
 }
+
+*/
