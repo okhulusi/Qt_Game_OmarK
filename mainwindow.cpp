@@ -10,6 +10,7 @@ MainWindow::MainWindow(){
 	counter_ = 0;
 	gameSpeed_ = 1;
 	scrollSwitch_ = true;
+	gameStarted = false;
 	
 	timer = new QTimer();
 	timer->setInterval(1);
@@ -64,7 +65,13 @@ MainWindow::MainWindow(){
 	setLayout(mainLayout);	
 	mainLayout->addWidget(view, 0, 0, 50, 50);
 	
-	
+	setFocus();
+}
+
+void MainWindow:: keyPressEvent(QKeyEvent *e){
+	if(gameStarted){
+		player->keyPressEvent(e);
+	}
 }
 
 void MainWindow:: handleStartButton(){
@@ -72,7 +79,7 @@ void MainWindow:: handleStartButton(){
 	timer->start();
 	
 	QPixmap *playerPixmap = new QPixmap("./GamePictures/Mermaid/Mermaid1.png");
-	Player *player = new Player(0,225,playerPixmap);
+	player = new Player(0,200,playerPixmap);
 	scene->addItem(player);
 	itemVec->push_back(player);
 	
@@ -92,6 +99,8 @@ void MainWindow:: handleStartButton(){
 	FloatingMine *mine = new FloatingMine(450, 300, minePixmap);
 	scene->addItem(mine);
 	itemVec->push_back(mine);
+	
+	gameStarted = true;
 }
 
 void MainWindow:: handlePauseButton(){

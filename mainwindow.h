@@ -18,6 +18,8 @@ class MainWindow: public QWidget{
 		explicit MainWindow();
 		~MainWindow();
 		void scrollBackground();
+	protected:
+		void keyPressEvent(QKeyEvent *e);
 	
 	public slots:
 		void handleStartButton();
@@ -25,6 +27,8 @@ class MainWindow: public QWidget{
 		void handlePauseButton();
 	
 	private:
+		Player *player;
+		bool gameStarted;
 		vector<GameItem*> *itemVec;
 		QTimer *timer;
 		int counter_;

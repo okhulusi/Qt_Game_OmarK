@@ -51,12 +51,12 @@ void Player::setSpeed(int gameSpeed){
 
 void Player:: keyPressEvent(QKeyEvent *e){
 	if(e->key() == Qt::Key_W){
-		if(y() <= 450){
-			setPos(x(), y() + 50);
+		if(y() >= 30){
+			setPos(x(), y() - 50);
 		}
 	} else if(e->key() == Qt::Key_S){
-		if(y() >= 50){
-			setPos(x(), y() - 50);
+		if(y() <= 350){
+			setPos(x(), y() + 50);
 		}
 	}
 }

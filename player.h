@@ -15,14 +15,15 @@ class Player : public GameItem{
 		~Player();
 		void act();
 		void setSpeed(int);
-		void keyPressEvent(QKeyEvent *e);
-		void keyReleaseEvent(QKeyEvent *e);
 		int getLives();
 		
 		void addLife();
 		void loseLife();
 		bool isDead();
 		void bubbleTime();
+		
+	void keyPressEvent(QKeyEvent *e);
+	void keyReleaseEvent(QKeyEvent *e);
 	
 	private:
 		int counter_;
