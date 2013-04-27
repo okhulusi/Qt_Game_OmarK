@@ -13,6 +13,7 @@ class Shark : public GameItem{
 		~Shark();
 		void act();
 		void setSpeed(int);
+		string getType();
 	
 	private:
 		int counter_;

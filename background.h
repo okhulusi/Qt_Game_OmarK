@@ -10,6 +10,7 @@ class Background : public GameItem{
 	~Background();
 	void setSpeed(int);
 	void act();
+	string getType();
 	
 	private:
 };

@@ -3,6 +3,8 @@ BubblePowerUp:: BubblePowerUp(int x, int y, QPixmap *pixmap) : GameItem(x,y,pixm
 	vx_ = -1;
 	vy_ = -1;
 	counter_ = 0;
+	
+	type_ = "Bubble";
 }
 
 BubblePowerUp:: ~BubblePowerUp(){
@@ -20,4 +22,8 @@ void BubblePowerUp:: act(){
 
 void BubblePowerUp:: setSpeed(int gameSpeed){
 	gameSpeed_ = gameSpeed;
+}
+
+string BubblePowerUp:: getType(){
+	return type_;
 }

@@ -7,6 +7,7 @@
 #include "shark.h"
 #include "blastingEel.h"
 #include "bubblePowerUp.h"
+#include "clamPowerUp.h"
 #include "floatingMine.h"
 #include "background.h"
 #include "player.h"
@@ -34,6 +35,14 @@ class MainWindow: public QWidget{
 		int counter_;
 		int gameSpeed_;
 		bool scrollSwitch_;
+		
+		void controlPlayer(Player *player);
+		void controlShark(Shark *shark);
+		void controlEel(BlastingEel *eel);
+		void controlEelBlast(Blast *blast);
+		void controlMine(FloatingMine *mine);
+		void controlClam(ClamPowerUp *clam);
+		void controlBubble(BubblePowerUp *bubble);
 		
 		QString username;
 		int score_;

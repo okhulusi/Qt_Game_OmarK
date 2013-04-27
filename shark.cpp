@@ -7,6 +7,8 @@ Shark:: Shark(int x, int y, QPixmap *pixmap) : GameItem(x, y, pixmap){
 	vx_ = -1;
 	vy_ = 0;
 	counter_ = 0;
+	
+	type_ = "Shark";
 }
 
 Shark:: ~Shark(){
@@ -21,5 +23,9 @@ void Shark:: act(){
 
 void Shark::setSpeed(int gameSpeed){
 	gameSpeed_ = gameSpeed;
+}
+
+string Shark:: getType(){
+	return type_;
 }
 

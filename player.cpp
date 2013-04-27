@@ -1,5 +1,6 @@
 
 #include "player.h"
+#include <iostream>
 
 using namespace std;
 
@@ -12,6 +13,8 @@ Player:: Player(int x, int y, QPixmap *pixmap) : GameItem(x, y, pixmap){
 	
 	lives_ = 3;
 	invincible_  = false;
+	
+	type_ = "Player";
 }
 
 Player:: ~Player(){
@@ -22,7 +25,17 @@ int Player:: getLives(){
 }
 
 void Player:: bubbleTime(){
+	cout << "BUBBLE TIME" << endl;
 	invincible_ = true;
+}
+
+void Player:: startInvincibility(){
+	invincible_ = true;
+	counter_ = 0;
+}
+
+void Player:: stopInvincibility(){
+	invincible_ = false;
 }
 
 void Player:: addLife(){
@@ -43,6 +56,13 @@ bool Player:: isDead(){
 
 void Player:: act(){
 	counter_++;
+	if(counter_ > 1000 && invincible_ == true){
+		stopInvincibility();
+	}
+}
+
+bool Player::isInvincible(){
+	return invincible_;
 }
 
 void Player::setSpeed(int gameSpeed){
@@ -61,4 +81,8 @@ void Player:: keyPressEvent(QKeyEvent *e){
 	}
 }
 void Player:: keyReleaseEvent(QKeyEvent *e){
+}
+
+string Player:: getType(){
+	return type_;
 }

@@ -9,6 +9,7 @@ class BubblePowerUp : public GameItem {
 		~BubblePowerUp();
 		void act();
 		void setSpeed(int gameSpeed);
+		string getType();
 		
 	private:
 		bool velocitySwitch_;

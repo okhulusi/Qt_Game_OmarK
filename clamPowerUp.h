@@ -10,6 +10,7 @@ class ClamPowerUp : public GameItem {
 		~ClamPowerUp();
 		void act();
 		void setSpeed(int gameSpeed);
+		string getType();
 		
 	private:
 };

@@ -1,5 +1,8 @@
 #include <QtGui/QApplication>
 #include "mainwindow.h"
+#include <iostream>
+
+using namespace std;
 
 MainWindow::~MainWindow(){
 
@@ -129,8 +132,75 @@ void MainWindow:: handleTimer(){
 //		gameSpeed_++;
 //	}
 	for(unsigned int i = 0; i < itemVec->size(); i++){
+		string s = (*itemVec)[i]->getType();
+		
 		(*itemVec)[i]->setSpeed(gameSpeed_);
 		(*itemVec)[i]->act();
+		
+		if(s == "Player"){
+			controlPlayer(dynamic_cast<Player*>((*itemVec)[i]));
+		} else if(s == "Shark"){
+			controlShark(dynamic_cast<Shark*>((*itemVec)[i]));
+		} else if(s == "BlastingEel"){
+			controlEel(dynamic_cast<BlastingEel*>((*itemVec)[i]));
+		} else if (s == "Blast"){
+			controlEelBlast(dynamic_cast<Blast*>((*itemVec)[i]));
+		} else if(s == "Mine"){
+			controlMine(dynamic_cast<FloatingMine*>((*itemVec)[i]));
+		} else if(s == "Clam"){
+			controlClam(dynamic_cast<ClamPowerUp*>((*itemVec)[i]));
+		} else if(s == "Bubble"){
+			controlBubble(dynamic_cast<BubblePowerUp*>((*itemVec)[i]));
+		} else{}
+		//cout << "Type: " << s << endl;
 	}
 	score+=1;
+}
+
+void MainWindow:: controlPlayer(Player *player){
+	for(unsigned int i = 0; i < itemVec->size(); i++){
+		if(player->isDead()){
+			for(unsigned int j = 0; j < itemVec->size(); j++){
+				delete (*itemVec)[i];
+				//YOU LOSE
+			}
+			return;
+		}
+		
+		if((*itemVec)[i]->getType() != "Background" && player->collidesWithItem((*itemVec)[i])){
+			if((*itemVec)[i]->getType() == "Bubble"){
+				controlBubble(dynamic_cast<BubblePowerUp*>((*itemVec)[i]));
+			} else if((*itemVec)[i]->getType() == "Clam"){
+				controlClam(dynamic_cast<ClamPowerUp*>((*itemVec)[i]));
+			} else if((*itemVec)[i]->getType() == "Shark"){
+				if(!(player->isInvincible())){
+					player->loseLife();
+					player->startInvincibility();
+				}
+			}
+		}
+	}
+	//cout << "Player Lives: " << player->getLives() << endl;
+}
+
+void MainWindow:: controlShark(Shark *shark){
+}
+
+void MainWindow:: controlEel(BlastingEel *eel){
+
+}
+
+void MainWindow:: controlEelBlast(Blast *blast){
+
+}
+void MainWindow:: controlMine(FloatingMine *mine){
+
+}
+
+void MainWindow:: controlClam(ClamPowerUp *clam){
+	player->addLife();
+}
+
+void MainWindow:: controlBubble(BubblePowerUp *bubble){
+	//player->bubbleTime();
 }

@@ -11,6 +11,7 @@ class FloatingMine: public GameItem {
 		~FloatingMine();
 		void act();
 		void setSpeed(int gameSpeed);
+		string getType();
 		
 	protected:
 		void mousePressEvent(QGraphicsSceneMouseEvent *event);

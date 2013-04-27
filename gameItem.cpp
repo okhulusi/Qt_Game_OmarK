@@ -6,6 +6,7 @@ GameItem:: GameItem(int x, int y, QPixmap *pixmap) : QObject(), QGraphicsPixmapI
 	gameSpeed_ = 1;
 	setPos(x, y);
 	setPixmap(*pixmap);
+	type_ = "none";
 }
 
 GameItem:: ~GameItem(){

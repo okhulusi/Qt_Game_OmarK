@@ -5,6 +5,8 @@ using namespace std;
 FloatingMine:: FloatingMine(int x, int y, QPixmap *pixmap) : GameItem(x,y,pixmap){
 	vx_ = -1;
 	vy_ = 0;
+	
+	type_ = "Mine";
 }
 
 FloatingMine:: ~FloatingMine(){
@@ -27,4 +29,8 @@ void FloatingMine:: mousePressEvent(QGraphicsSceneMouseEvent *event){
 
 void FloatingMine:: setSpeed(int gameSpeed){
 	gameSpeed_ = gameSpeed;
+}
+
+string FloatingMine:: getType(){
+	return type_;
 }

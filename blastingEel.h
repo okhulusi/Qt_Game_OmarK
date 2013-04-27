@@ -3,6 +3,7 @@
 #define BLASTING_EEL_H
 
 #include "gameItem.h"
+#include "eelBlast.h"
 
 class BlastingEel : public GameItem {
 
@@ -12,8 +13,11 @@ class BlastingEel : public GameItem {
 		void act();
 		void attack(int waitTime, int speed, int numBlasts, int blastInterval);
 		void setSpeed(int gameSpeed);
+		string getType();
 		
 	private:
+		int counter_;
+		string type_;
 };
 #endif
 

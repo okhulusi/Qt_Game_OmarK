@@ -3,6 +3,8 @@
 ClamPowerUp:: ClamPowerUp(int x, int y, QPixmap *pixmap) : GameItem(x,y,pixmap){
 	vx_ = 1;
 	vy_ = 1;
+	
+	type_ = "Clam";
 }
 
 ClamPowerUp:: ~ClamPowerUp(){
@@ -15,4 +17,8 @@ void ClamPowerUp:: act(){
 
 void ClamPowerUp::setSpeed(int gameSpeed){
 	gameSpeed_ = gameSpeed;
+}
+
+string ClamPowerUp:: getType(){
+	return type_;
 }

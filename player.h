@@ -9,7 +9,7 @@
 using namespace std;
 
 class Player : public GameItem{
-
+	Q_OBJECT
 	public:
 		Player(int x, int y, QPixmap *pixmap);
 		~Player();
@@ -17,13 +17,20 @@ class Player : public GameItem{
 		void setSpeed(int);
 		int getLives();
 		
+		string getType();
+		
 		void addLife();
 		void loseLife();
+		bool isInvincible();
+		void startInvincibility();
 		bool isDead();
 		void bubbleTime();
 		
 	void keyPressEvent(QKeyEvent *e);
 	void keyReleaseEvent(QKeyEvent *e);
+	
+	public slots:
+		void stopInvincibility();
 	
 	private:
 		int counter_;
