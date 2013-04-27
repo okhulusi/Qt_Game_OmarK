@@ -9,10 +9,11 @@ using namespace std;
 class Shark : public GameItem{
 
 	public:
-		Shark(QPixmap *pixmap);
+		Shark(int x, int y, QPixmap *pixmap);
 		~Shark();
-		void act(int delayTime);
-		void attack(int waitTime, int speed);
+		void act();
+		void attack(int speed);
+		void setSpeed(int);
 	
 	private:
 		

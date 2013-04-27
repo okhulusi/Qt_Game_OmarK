@@ -8,23 +8,19 @@ MainWindow::~MainWindow(){
 MainWindow::MainWindow(){
 	itemVec = new vector<GameItem*>();
 	counter_ = 0;
+	gameSpeed_ = 1;
+	scrollSwitch_ = true;
 	
 	timer = new QTimer();
 	timer->setInterval(1);
 	connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
 	
 	mainLayout = new QGridLayout();
-	scene = new QGraphicsScene();
+	scene = new QGraphicsScene(0, 0, 500, 500);
 	view = new QGraphicsView(scene);
 	
-	view->setFixedSize(500, 500);
+	view->setFixedSize(505, 505);
 	view->setWindowTitle("Under the Deep Blue Sea");
-	
-	background = new QPixmap("./GamePictures/Background.png");
-	//*background = background->scaled(500, 500);
-	backgroundBrush = new QBrush();
-	backgroundBrush->setTexture(*background);
-	scene->setBackgroundBrush(*backgroundBrush);
 	
 	style = new QPlastiqueStyle();
 	qApp->setStyle(style);
@@ -42,15 +38,33 @@ MainWindow::MainWindow(){
 	connect(startButton, SIGNAL(clicked()), this, SLOT(handleStartButton()));
 	startMenuLayout->addWidget(startButton); 
 	
+	//Pause Button
+	pauseButton = new QPushButton();
+	pauseButton->setText("Pause Button");
+	connect(pauseButton, SIGNAL(clicked()), this, SLOT(handlePauseButton()));
+	startMenuLayout->addWidget(pauseButton);
+	
 	//Quit Button
 	quitButton = new QPushButton();
 	quitButton->setText("Quit Game");
 	connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
 	startMenuLayout->addWidget(quitButton);
 	
+	//background
+	backgroundPixmap = new QPixmap("./GamePictures/Background.png");
+	*backgroundPixmap = backgroundPixmap->scaled(500, 500);
+	background = new Background(0,0, backgroundPixmap);
+	background2 = new Background(500, 0, backgroundPixmap);
+	scene->addItem(background);
+	scene->addItem(background2);
+	itemVec->push_back(background);
+	itemVec->push_back(background2);
+	
 	mainLayout->addLayout(startMenuLayout, 0, 50, 10, 10);
 	setLayout(mainLayout);	
 	mainLayout->addWidget(view, 0, 0, 50, 50);
+	
+	
 }
 
 void MainWindow:: handleStartButton(){
@@ -58,15 +72,31 @@ void MainWindow:: handleStartButton(){
 	timer->start();
 }
 
+void MainWindow:: handlePauseButton(){
+	if(timer->isActive()){
+		timer->stop();
+	} else {
+		timer->start();
+	}
+}
+
+void MainWindow:: scrollBackground(){
+	if(counter_%(500/gameSpeed_) == 0 && scrollSwitch_){
+		background->setPos(500, 0);
+		scrollSwitch_ = false;
+	} else if(counter_%(500/gameSpeed_) == 0 && !scrollSwitch_){
+		background2->setPos(500,0);
+		scrollSwitch_ = true;
+	}
+}
+
 void MainWindow:: handleTimer(){
 	counter_++;
+	scrollBackground();
 	
-	if(counter_%3000 == 0){
-		//Scrolling image
-	}
 	for(unsigned int i = 0; i < itemVec->size(); i++){
-		(*itemVec)[i]->act(0);
+		(*itemVec)[i]->setSpeed(gameSpeed_);
+		(*itemVec)[i]->act();
 	}
 	score+=1;
-	
 }

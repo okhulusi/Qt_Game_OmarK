@@ -2,7 +2,7 @@
 
 using namespace std;
 
-FloatingMine:: FloatingMine(QPixmap *pixmap) : GameItem(pixmap){
+FloatingMine:: FloatingMine(int x, int y, QPixmap *pixmap) : GameItem(x,y,pixmap){
 	vx_ = 1;
 	vy_ = 1;
 }
@@ -11,10 +11,14 @@ FloatingMine:: ~FloatingMine(){
 
 }
 
-void FloatingMine:: act(int delayTime){
+void FloatingMine:: act(){
 	
 }
 
 void FloatingMine:: MousePressedEvent(QGraphicsSceneMouseEvent *e){
 
+}
+
+void FloatingMine:: setSpeed(int gameSpeed){
+	gameSpeed_ = gameSpeed;
 }

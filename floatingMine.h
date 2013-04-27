@@ -6,10 +6,11 @@
 #include <QGraphicsSceneMouseEvent>
 class FloatingMine: public GameItem {
 	public:
-		FloatingMine(QPixmap *pixmap);
+		FloatingMine(int x, int y, QPixmap *pixmap);
 		~FloatingMine();
-		void act(int delayTime);
+		void act();
 		void MousePressedEvent(QGraphicsSceneMouseEvent *e);
+		void setSpeed(int gameSpeed);
 	private:
 };
 #endif

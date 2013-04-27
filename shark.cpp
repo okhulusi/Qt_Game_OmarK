@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Shark:: Shark(QPixmap *pixmap) : GameItem(pixmap){
+Shark:: Shark(int x, int y, QPixmap *pixmap) : GameItem(x, y, pixmap){
 	vx_ = 2;
 	vy_ = 2;
 }
@@ -11,11 +11,15 @@ Shark:: Shark(QPixmap *pixmap) : GameItem(pixmap){
 Shark:: ~Shark(){
 }
 
-void Shark:: act(int delayTime){
-	attack(delayTime, 10); 
+void Shark:: act(){
+	attack(10); 
 }
 
-void Shark:: attack(int waitTime, int speed){
+void Shark:: attack(int speed){
 
+}
+
+void Shark::setSpeed(int gameSpeed){
+	gameSpeed_ = gameSpeed;
 }
 

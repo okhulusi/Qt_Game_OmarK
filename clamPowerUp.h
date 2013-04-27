@@ -6,9 +6,10 @@
 #include <QPixmap>
 class ClamPowerUp : public GameItem {
 	public:
-		ClamPowerUp(QPixmap *pixmap);
+		ClamPowerUp(int x, int y, QPixmap *pixmap);
 		~ClamPowerUp();
-		void act(int delayTime);
+		void act();
+		void setSpeed(int gameSpeed);
 		
 	private:
 };

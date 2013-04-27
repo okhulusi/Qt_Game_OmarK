@@ -5,10 +5,11 @@
 #include <QPixmap>
 class BubblePowerUp : public GameItem {
 	public:
-		BubblePowerUp(QPixmap *pixmap);
+		BubblePowerUp(int x, int y, QPixmap *pixmap);
 		~BubblePowerUp();
-		void act(int delayTime);
+		void act();
 		void move();
+		void setSpeed(int gameSpeed);
 		
 	private:
 };

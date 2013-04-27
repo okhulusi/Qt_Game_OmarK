@@ -8,6 +8,7 @@
 #include "blastingEel.h"
 #include "bubblePowerUp.h"
 #include "floatingMine.h"
+#include "background.h"
 
 class MainWindow: public QWidget{
 	Q_OBJECT
@@ -15,29 +16,36 @@ class MainWindow: public QWidget{
 	public:
 		explicit MainWindow();
 		~MainWindow();
+		void scrollBackground();
 	
 	public slots:
 		void handleStartButton();
 		void handleTimer();
+		void handlePauseButton();
 	
 	private:
 		vector<GameItem*> *itemVec;
 		QTimer *timer;
 		int counter_;
+		int gameSpeed_;
+		bool scrollSwitch_;
 		
 		QString username;
 		int score_;
 		QString score;
 		
 		QGridLayout *mainLayout;
-		QPixmap *background;
-		QBrush *backgroundBrush;
+		
+		QPixmap *backgroundPixmap;
+		Background *background;
+		Background *background2;
 		
 		QVBoxLayout *startMenuLayout;
 		QLabel *nameLabel;
 		QLineEdit *nameField;
 		QPushButton *startButton;
 		QPushButton *quitButton;
+		QPushButton *pauseButton;
 		
 		QPlastiqueStyle *style;
 		QGraphicsScene *scene;

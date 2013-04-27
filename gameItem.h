@@ -1,20 +1,19 @@
 #ifndef GAME_ITEM_H
 #define GAME_ITEM_H
 
-#include <QGraphicsPixmapItem>
-#include <QPixmap>
-#include <QObject>
-class GameItem : public QObject, QGraphicsPixmapItem {
+#include <QtGui>
+
+class GameItem : public QObject, public QGraphicsPixmapItem {
 	Q_OBJECT
 	public:
-		GameItem(QPixmap *pixmap);
+		GameItem(int x, int y, QPixmap *pixmap);
 		~GameItem();
-		virtual void act(int delayTime) = 0;
+		virtual void act() = 0;
+		virtual void setSpeed(int gameSpeed) = 0;
 	
 	protected:
+		int gameSpeed_;
 		int vx_;
-		int vy_;
-		
-		
+		int vy_;	
 };
 #endif

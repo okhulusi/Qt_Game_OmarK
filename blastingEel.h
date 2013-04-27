@@ -7,10 +7,11 @@
 class BlastingEel : public GameItem {
 
 	public:
-		BlastingEel(QPixmap *pixmap);
+		BlastingEel(int x, int y, QPixmap *pixmap);
 		~BlastingEel();
-		void act(int delayTime);
+		void act();
 		void attack(int waitTime, int speed, int numBlasts, int blastInterval);
+		void setSpeed(int gameSpeed);
 		
 	private:
 };
