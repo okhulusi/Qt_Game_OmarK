@@ -6,12 +6,25 @@ MainWindow::~MainWindow(){
 }
 
 MainWindow::MainWindow(){
+	itemVec = new vector<GameItem*>();
+	counter_ = 0;
+	
+	timer = new QTimer();
+	timer->setInterval(1);
+	connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
+	
 	mainLayout = new QGridLayout();
 	scene = new QGraphicsScene();
-	view = new QGraphicsView();
+	view = new QGraphicsView(scene);
 	
-	view->setFixedSize(250, 250);
+	view->setFixedSize(500, 500);
 	view->setWindowTitle("Under the Deep Blue Sea");
+	
+	background = new QPixmap("./GamePictures/Background.png");
+	//*background = background->scaled(500, 500);
+	backgroundBrush = new QBrush();
+	backgroundBrush->setTexture(*background);
+	scene->setBackgroundBrush(*backgroundBrush);
 	
 	style = new QPlastiqueStyle();
 	qApp->setStyle(style);
@@ -22,23 +35,38 @@ MainWindow::MainWindow(){
 	startMenuLayout->addWidget(nameLabel);
 	nameField = new QLineEdit();
 	startMenuLayout->addWidget(nameField);
+	
 	//Start Button
 	startButton = new QPushButton();
 	startButton->setText("Start Game");
 	connect(startButton, SIGNAL(clicked()), this, SLOT(handleStartButton()));
-	startButton->show();
 	startMenuLayout->addWidget(startButton); 
 	
 	//Quit Button
 	quitButton = new QPushButton();
 	quitButton->setText("Quit Game");
 	connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
-	quitButton->show();
 	startMenuLayout->addWidget(quitButton);
 	
-	setLayout(startMenuLayout);
+	mainLayout->addLayout(startMenuLayout, 0, 50, 10, 10);
+	setLayout(mainLayout);	
+	mainLayout->addWidget(view, 0, 0, 50, 50);
 }
 
 void MainWindow:: handleStartButton(){
-	view->show();
+	username = nameField->text();
+	timer->start();
+}
+
+void MainWindow:: handleTimer(){
+	counter_++;
+	
+	if(counter_%3000 == 0){
+		//Scrolling image
+	}
+	for(unsigned int i = 0; i < itemVec->size(); i++){
+		(*itemVec)[i]->act(0);
+	}
+	score+=1;
+	
 }

@@ -1,10 +1,7 @@
-/*
-
 #include "bubblePowerUp.h"
-
-BubblePowerUp:: BubblePowerUp(int x){
-	x_ = x;
-	y_ = 0;
+BubblePowerUp:: BubblePowerUp(QPixmap *pixmap) : GameItem(pixmap) {
+	vx_ = 1;
+	vy_ = 0;
 }
 
 BubblePowerUp:: ~BubblePowerUp(){
@@ -15,4 +12,6 @@ void BubblePowerUp:: act(int delayTime){
 
 }
 
-*/
+void BubblePowerUp:: move(){
+
+}

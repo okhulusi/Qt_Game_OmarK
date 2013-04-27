@@ -1,19 +1,16 @@
-/*
 #ifndef BUBBLE_POWERUP_H
 #define BUBBLE_POWERUP_H
 
 #include "gameItem.h"
-
+#include <QPixmap>
 class BubblePowerUp : public GameItem {
 	public:
-		BubblePowerUp();
+		BubblePowerUp(QPixmap *pixmap);
 		~BubblePowerUp();
 		void act(int delayTime);
+		void move();
 		
 	private:
-		int x_;
-		int y_;
 };
 #endif
 
-*/

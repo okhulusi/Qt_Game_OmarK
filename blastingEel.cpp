@@ -1,10 +1,10 @@
-/*#include "blastingEel.h"
+#include "blastingEel.h"
 
 using namespace std;
 
-BlastingEel:: BlastingEel(int x, int userLocY){
-	x_ = x;
-	y_ = userLocY;
+BlastingEel:: BlastingEel(QPixmap *pixmap) : GameItem(pixmap){
+	vx_ = 2;
+	vy_ = 2;
 }
 
 BlastingEel:: ~BlastingEel(){
@@ -18,5 +18,3 @@ void BlastingEel:: act(int delayTime){
 void BlastingEel:: attack(int waitTime, int speed, int numBlasts, int blastInterval){
 
 }
-
-*/

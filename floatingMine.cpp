@@ -1,12 +1,10 @@
-/*
 #include "floatingMine.h"
 
 using namespace std;
 
-FloatingMine:: FloatingMine(int x, int y){
-	x_ = x;
-	y_ = y;
-	
+FloatingMine:: FloatingMine(QPixmap *pixmap) : GameItem(pixmap){
+	vx_ = 1;
+	vy_ = 1;
 }
 
 FloatingMine:: ~FloatingMine(){
@@ -17,8 +15,6 @@ void FloatingMine:: act(int delayTime){
 	
 }
 
-void FloatingMine:: MousePressedEvent(Event *e){
+void FloatingMine:: MousePressedEvent(QGraphicsSceneMouseEvent *e){
 
 }
-
-*/

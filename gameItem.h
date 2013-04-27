@@ -1,36 +1,20 @@
-/*
 #ifndef GAME_ITEM_H
 #define GAME_ITEM_H
 
-#include <QPixMapItem>
-class GameItem : public QPixMapItem {
+#include <QGraphicsPixmapItem>
+#include <QPixmap>
+#include <QObject>
+class GameItem : public QObject, QGraphicsPixmapItem {
+	Q_OBJECT
 	public:
+		GameItem(QPixmap *pixmap);
+		~GameItem();
 		virtual void act(int delayTime) = 0;
+	
+	protected:
+		int vx_;
+		int vy_;
 		
-		int getX();
-		void setX();
-		int getY();
-		void setY();
-	private:
-		int x_;
-		int y_;
+		
 };
-
-int GameItem:: getX(){
-	return x_;
-}
-
-void GameItem:: setX(int x){
-	x_ = x;
-}
-
-int GameItem:: getY(){
-	return y_;
-}
-
-int GameItem:: setY(int y){
-	y_ = y;
-}
 #endif
-
-*/

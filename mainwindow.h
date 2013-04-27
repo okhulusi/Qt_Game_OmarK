@@ -1,30 +1,13 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-#include <QMainWindow>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QGraphicsRectItem>
-#include <QTimer>
-#include <QTimeLine>
-#include <QPushButton>
-#include <QLabel>
-#include <QLineEdit>
-#include <QTextEdit>
-#include <QRadioButton>
-#include <QListView>
-#include <QtGui/QApplication>
-#include <QGridLayout>
-#include <QPlastiqueStyle>
-#include <QStyle>
-#include <QBoxLayout>
-#include <QVBoxLayout>
-#include <QFormLayout>
-#include <QGroupBox>
-#include <QPointF>
-#include <QRectF>
-#include <QListWidget>
-#include <cmath>
+#include <QtGui>
+#include <vector>
+#include "gameItem.h"
+#include "shark.h"
+#include "blastingEel.h"
+#include "bubblePowerUp.h"
+#include "floatingMine.h"
 
 class MainWindow: public QWidget{
 	Q_OBJECT
@@ -35,17 +18,28 @@ class MainWindow: public QWidget{
 	
 	public slots:
 		void handleStartButton();
+		void handleTimer();
 	
 	private:
-		QGridLayout *mainLayout;
+		vector<GameItem*> *itemVec;
+		QTimer *timer;
+		int counter_;
 		
-		QPlastiqueStyle *style;
+		QString username;
+		int score_;
+		QString score;
+		
+		QGridLayout *mainLayout;
+		QPixmap *background;
+		QBrush *backgroundBrush;
+		
 		QVBoxLayout *startMenuLayout;
 		QLabel *nameLabel;
 		QLineEdit *nameField;
 		QPushButton *startButton;
 		QPushButton *quitButton;
 		
+		QPlastiqueStyle *style;
 		QGraphicsScene *scene;
 		QGraphicsView *view;
 

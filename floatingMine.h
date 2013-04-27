@@ -1,18 +1,17 @@
-/*
 #ifndef FLOATING_MINE_H
 #define FLOATING_MINE_H
 
 #include "gameItem.h"
+#include <QPixmap>
+#include <QGraphicsSceneMouseEvent>
 class FloatingMine: public GameItem {
 	public:
-		FloatingMine();
+		FloatingMine(QPixmap *pixmap);
 		~FloatingMine();
-		void act();
-		void MousePressedEvent(Event *e);
+		void act(int delayTime);
+		void MousePressedEvent(QGraphicsSceneMouseEvent *e);
 	private:
-		int x_;
-		int y_;
 };
 #endif
 
-*/
+
