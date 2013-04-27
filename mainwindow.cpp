@@ -82,6 +82,7 @@ void MainWindow:: handleStartButton(){
 	itemVec->push_back(shark);
 	
 	QPixmap *bubblePixmap = new QPixmap("./GamePictures/Bubble/Bubble.png");
+	*bubblePixmap = bubblePixmap->scaled(75, 75);
 	BubblePowerUp *bubble = new BubblePowerUp(450, 250, bubblePixmap);
 	scene->addItem(bubble);
 	itemVec->push_back(bubble);

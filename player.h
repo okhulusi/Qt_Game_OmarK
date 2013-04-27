@@ -18,7 +18,11 @@ class Player : public GameItem{
 		void keyPressEvent(QKeyEvent *e);
 		void keyReleaseEvent(QKeyEvent *e);
 		int getLives();
+		
 		void addLife();
+		void loseLife();
+		bool isDead();
+		void bubbleTime();
 	
 	private:
 		int counter_;

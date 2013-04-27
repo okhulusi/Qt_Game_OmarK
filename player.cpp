@@ -21,8 +21,24 @@ int Player:: getLives(){
 	return lives_;
 }
 
+void Player:: bubbleTime(){
+	invincible_ = true;
+}
+
 void Player:: addLife(){
 	lives_++;
+}
+
+void Player::loseLife(){
+	lives_--;
+}
+
+bool Player:: isDead(){
+	if(lives_ <= 0){
+		return true;
+	}
+	
+	return false;
 }
 
 void Player:: act(){

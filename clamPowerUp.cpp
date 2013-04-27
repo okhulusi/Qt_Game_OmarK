@@ -10,7 +10,7 @@ ClamPowerUp:: ~ClamPowerUp(){
 }
 
 void ClamPowerUp:: act(){
-	
+	setPos(x() + vx_*gameSpeed_, y() + vy_*gameSpeed_);
 }
 
 void ClamPowerUp::setSpeed(int gameSpeed){

@@ -11,15 +11,11 @@ BubblePowerUp:: ~BubblePowerUp(){
 
 void BubblePowerUp:: act(){
 	counter_++;
-	setPos(x() + vx_, y() + vy_);
+	setPos(x() + vx_*gameSpeed_, y() + vy_*gameSpeed_);
 	
 	if(counter_%200 == 0){
 		vy_*= -1;
 	}
-}
-
-void BubblePowerUp:: move(){
-
 }
 
 void BubblePowerUp:: setSpeed(int gameSpeed){

@@ -8,7 +8,6 @@ class BubblePowerUp : public GameItem {
 		BubblePowerUp(int x, int y, QPixmap *pixmap);
 		~BubblePowerUp();
 		void act();
-		void move();
 		void setSpeed(int gameSpeed);
 		
 	private:
