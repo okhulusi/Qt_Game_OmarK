@@ -4,19 +4,19 @@
 using namespace std;
 
 Shark:: Shark(int x, int y, QPixmap *pixmap) : GameItem(x, y, pixmap){
-	vx_ = 2;
-	vy_ = 2;
+	vx_ = -1;
+	vy_ = 0;
+	counter_ = 0;
 }
 
 Shark:: ~Shark(){
 }
 
 void Shark:: act(){
-	attack(10); 
-}
-
-void Shark:: attack(int speed){
-
+	counter_++;
+	if(counter_ > 3000){
+		setPos(x() + vx_, y() + vy_);
+	}
 }
 
 void Shark::setSpeed(int gameSpeed){

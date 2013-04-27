@@ -12,10 +12,10 @@ class Shark : public GameItem{
 		Shark(int x, int y, QPixmap *pixmap);
 		~Shark();
 		void act();
-		void attack(int speed);
 		void setSpeed(int);
 	
 	private:
+		int counter_;
 		
 };
 #endif

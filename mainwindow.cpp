@@ -70,6 +70,16 @@ MainWindow::MainWindow(){
 void MainWindow:: handleStartButton(){
 	username = nameField->text();
 	timer->start();
+	
+	QPixmap *sharkPixmap = new QPixmap("./GamePictures/Shark/Shark3.png");
+	Shark *shark = new Shark(450, 0, sharkPixmap);
+	scene->addItem(shark);
+	itemVec->push_back(shark);
+	
+	QPixmap *bubblePixmap = new QPixmap("./GamePictures/Bubble/Bubble.png");
+	BubblePowerUp *bubble = new BubblePowerUp(450, 250, bubblePixmap);
+	scene->addItem(bubble);
+	itemVec->push_back(bubble);
 }
 
 void MainWindow:: handlePauseButton(){
@@ -94,6 +104,9 @@ void MainWindow:: handleTimer(){
 	counter_++;
 	scrollBackground();
 	
+//	if(counter_%10000 == 0){
+//		gameSpeed_++;
+//	}
 	for(unsigned int i = 0; i < itemVec->size(); i++){
 		(*itemVec)[i]->setSpeed(gameSpeed_);
 		(*itemVec)[i]->act();

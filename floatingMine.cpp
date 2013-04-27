@@ -3,8 +3,8 @@
 using namespace std;
 
 FloatingMine:: FloatingMine(int x, int y, QPixmap *pixmap) : GameItem(x,y,pixmap){
-	vx_ = 1;
-	vy_ = 1;
+	vx_ = -1;
+	vy_ = -1;
 }
 
 FloatingMine:: ~FloatingMine(){
@@ -12,7 +12,7 @@ FloatingMine:: ~FloatingMine(){
 }
 
 void FloatingMine:: act(){
-	
+	setPos(x() + vx_, y() + vy_);
 }
 
 void FloatingMine:: MousePressedEvent(QGraphicsSceneMouseEvent *e){
