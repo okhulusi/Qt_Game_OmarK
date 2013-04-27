@@ -5,13 +5,19 @@
 #include <QPixmap>
 #include <QGraphicsSceneMouseEvent>
 class FloatingMine: public GameItem {
+	Q_OBJECT
 	public:
 		FloatingMine(int x, int y, QPixmap *pixmap);
 		~FloatingMine();
 		void act();
-		void MousePressedEvent(QGraphicsSceneMouseEvent *e);
 		void setSpeed(int gameSpeed);
+		
+	protected:
+		void mousePressEvent(QGraphicsSceneMouseEvent *event);
+	signals:
+		void minePressed(bool);	
 	private:
+		int counter_;
 };
 #endif
 

@@ -9,6 +9,7 @@
 #include "bubblePowerUp.h"
 #include "floatingMine.h"
 #include "background.h"
+#include "player.h"
 
 class MainWindow: public QWidget{
 	Q_OBJECT

@@ -4,7 +4,7 @@ using namespace std;
 
 FloatingMine:: FloatingMine(int x, int y, QPixmap *pixmap) : GameItem(x,y,pixmap){
 	vx_ = -1;
-	vy_ = -1;
+	vy_ = 0;
 }
 
 FloatingMine:: ~FloatingMine(){
@@ -12,11 +12,17 @@ FloatingMine:: ~FloatingMine(){
 }
 
 void FloatingMine:: act(){
-	setPos(x() + vx_, y() + vy_);
+	counter_++;
+	if(counter_%10 == 0){
+		setPos(x() + vx_*gameSpeed_, y() + vy_*gameSpeed_);
+	}
 }
 
-void FloatingMine:: MousePressedEvent(QGraphicsSceneMouseEvent *e){
-
+void FloatingMine:: mousePressEvent(QGraphicsSceneMouseEvent *event){
+	if(event->button() == Qt::LeftButton){
+		event = event;
+		emit minePressed(true);
+	}
 }
 
 void FloatingMine:: setSpeed(int gameSpeed){

@@ -71,6 +71,11 @@ void MainWindow:: handleStartButton(){
 	username = nameField->text();
 	timer->start();
 	
+	QPixmap *playerPixmap = new QPixmap("./GamePictures/Mermaid/Mermaid1.png");
+	Player *player = new Player(0,225,playerPixmap);
+	scene->addItem(player);
+	itemVec->push_back(player);
+	
 	QPixmap *sharkPixmap = new QPixmap("./GamePictures/Shark/Shark3.png");
 	Shark *shark = new Shark(450, 0, sharkPixmap);
 	scene->addItem(shark);
@@ -80,6 +85,12 @@ void MainWindow:: handleStartButton(){
 	BubblePowerUp *bubble = new BubblePowerUp(450, 250, bubblePixmap);
 	scene->addItem(bubble);
 	itemVec->push_back(bubble);
+	
+	QPixmap *minePixmap = new QPixmap("./GamePictures/Mine/Mine.png");
+	*minePixmap = minePixmap->scaled(75, 75);
+	FloatingMine *mine = new FloatingMine(450, 300, minePixmap);
+	scene->addItem(mine);
+	itemVec->push_back(mine);
 }
 
 void MainWindow:: handlePauseButton(){
