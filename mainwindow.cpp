@@ -317,11 +317,14 @@ void MainWindow:: controlPlayer(Player *player){
 
 void MainWindow:: controlShark(Shark *shark){
 	if(shark->isMoving()){
-		if(counter_%800 == 0){
+		if(counter_%600 == 0){
 			QPixmap *sharkPixmap2 = new QPixmap("./GamePictures/Shark/Shark5");
 			shark->setPixmap(*sharkPixmap2);
 		} else if(counter_%400 == 0){
 			QPixmap *sharkPixmap3 = new QPixmap("./GamePictures/Shark/Shark4");
+			shark->setPixmap(*sharkPixmap3);
+		} else if(counter_%200 == 0){
+			QPixmap *sharkPixmap3 = new QPixmap("./GamePictures/Shark/Shark3");
 			shark->setPixmap(*sharkPixmap3);
 		}
 		

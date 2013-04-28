@@ -20,7 +20,7 @@ void Shark:: act(){
 	if(counter_ > 3000){
 		moving_ = true;
 		if(counter_%(5/gameSpeed_ + 1) == 0){
-			setPos(x() + vx_, y() + vy_);
+			setPos(x() + vx_*gameSpeed_, y() + vy_*gameSpeed_);
 		}
 	}
 }
