@@ -14,7 +14,7 @@ BubblePowerUp:: ~BubblePowerUp(){
 void BubblePowerUp:: act(){
 	counter_++;
 	if(counter_%40 == 0){
-		setPos(x() + vx_*gameSpeed_, y() + vy_*gameSpeed_);
+		setPos(x() + vx_, y() + vy_);
 	
 		if(counter_%200 == 0){
 			vy_*= -1;

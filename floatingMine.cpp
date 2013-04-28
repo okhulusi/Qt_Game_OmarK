@@ -19,7 +19,7 @@ FloatingMine:: ~FloatingMine(){
 void FloatingMine:: act(){
 	counter_++;
 	if(counter_%10 == 0){
-		setPos(x() + vx_*gameSpeed_, y() + vy_*gameSpeed_);
+		setPos(x() + vx_, y() + vy_*gameSpeed_);
 	}
 }
 

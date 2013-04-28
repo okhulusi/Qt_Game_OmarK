@@ -35,6 +35,21 @@ void BlastingEel:: act(){
 	if(counter_ == 3900){
 		emit firing(x(), y());
 	}
+	
+	if(gameSpeed_ >=3){
+		if(counter_ == 4200){
+			emit firing(x(), y());
+		}
+		if(counter_ == 4500){
+			emit firing(x(), y());
+		}
+		if(counter_ == 4800){
+			emit firing(x(), y());
+		}
+		if(counter_ == 5100){
+			emit firing(x(), y());
+		}
+	}
 	setPos(x() + vx_, y() + vy_);
 }
 
