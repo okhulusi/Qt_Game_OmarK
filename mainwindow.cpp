@@ -31,10 +31,15 @@ MainWindow::MainWindow(){
 	mainLayout = new QGridLayout();
 	scene = new QGraphicsScene(0, 0, 500, 500);
 	view = new QGraphicsView(scene);
-	//startMenuLayout->addWidget(scoreLabel);
-	//startMenuLayout->addWidget(scoreBox);
+	
 	mainLayout->addWidget(scoreLabel, 10, 50, 10, 10);
 	mainLayout->addWidget(scoreBox, 15, 50, 10, 10);
+	
+	numLivesLabel = new QLabel("Number of Lives: ");
+	livesLabel = new QLabel();
+	livesLabel->setText(QString::number(3));
+	mainLayout->addWidget(numLivesLabel, 20, 50, 10, 10);
+	mainLayout->addWidget(livesLabel, 25, 50, 10, 10);
 	
 	view->setFixedSize(505, 505);
 	view->setWindowTitle("Under the Deep Blue Sea");
@@ -158,7 +163,11 @@ void MainWindow:: handleStartButton(){
 		}
 	} else{
 		score_ = 0;
+		gameSpeed_ = 1;
 		scoreBox->setText(QString::number(score_));
+		livesLabel->setText(QString::number(3));
+		numLivesLabel->setText("Number of Lives: ");
+		scoreLabel->setText("Score: ");
 		disconnect(player, SIGNAL(bubbleTimeOver()), this, SLOT(deleteBubble()));
 		scene->removeItem(player);
 		while(itemVec->size() > 2){
@@ -218,6 +227,12 @@ void MainWindow:: incrementScore(int add){
 	score_+=add;
 	scoreBox->setText(QString::number(score_));
 }
+
+void MainWindow:: displayGameOver(){
+	livesLabel->setText(QString::number(0));
+	scoreLabel->setText("GAME OVER! Final Score: ");
+}
+
 void MainWindow:: handleTimer(){
 	counter_++;
 	scrollBackground();
@@ -225,13 +240,15 @@ void MainWindow:: handleTimer(){
 	if(counter_%(3500/gameSpeed_) == 0){
 		generateRandomItem();
 	}
-	if(counter_%100 == 0 && gameSpeed_ >= 3 && counter_ > 90000){	//Becomes Impossible
+	if(counter_%1000 == 0 && gameSpeed_ >= 3 && counter_ > 90000){	//Becomes Impossible
 		generateRandomItem();
 		generateRandomItem();	
 	}
 	if(counter_%(1000/gameSpeed_) == 0){
 		incrementScore(1);
 	} 
+	
+	livesLabel->setText(QString::number(player->getLives()));
 	
 	
 	if(counter_%20000 == 0){
@@ -280,11 +297,9 @@ void MainWindow:: controlPlayer(Player *player){
 	for(unsigned int i = 0; i < itemVec->size(); i++){
 		if(player->isDead()){
 			timer->stop();
-			/*while(itemVec->size() > 2){
-				GameItem *temp = itemVec->at(itemVec->size()-1);
-				itemVec->pop_back();
-				delete temp;
-			}*/
+			score_ = 0;
+			displayGameOver();
+			//delete stuff
 		}
 		
 		if((*itemVec)[i]->getType() != "Background" && player->collidesWithItem((*itemVec)[i])){
@@ -317,19 +332,19 @@ void MainWindow:: controlPlayer(Player *player){
 
 void MainWindow:: controlShark(Shark *shark){
 	if(shark->isMoving()){
-		if(counter_%600 == 0){
+		if(counter_%300 == 0){
 			QPixmap *sharkPixmap2 = new QPixmap("./GamePictures/Shark/Shark5");
 			shark->setPixmap(*sharkPixmap2);
-		} else if(counter_%400 == 0){
+		} else if(counter_%200 == 0){
 			QPixmap *sharkPixmap3 = new QPixmap("./GamePictures/Shark/Shark4");
 			shark->setPixmap(*sharkPixmap3);
-		} else if(counter_%200 == 0){
+		} else if(counter_%100 == 0){
 			QPixmap *sharkPixmap3 = new QPixmap("./GamePictures/Shark/Shark3");
 			shark->setPixmap(*sharkPixmap3);
 		}
 		
 		if(shark->x() < -1000){
-			int loc = 0;
+			unsigned int loc = 0;
 			while(loc < itemVec->size()){
 				if(itemVec->at(loc)->getType() == "Shark"){
 					GameItem *temp = itemVec->at(loc);
@@ -382,7 +397,7 @@ void MainWindow:: controlBubble(BubblePowerUp *bubble){
 }
 
 void MainWindow:: deleteBubble(){
-	int loc = 0;
+	unsigned int loc = 0;
 	while(loc < itemVec->size()){
 		if(itemVec->at(loc)->getType() == "Bubble"){
 			GameItem *temp = itemVec->at(loc);

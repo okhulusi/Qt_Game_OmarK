@@ -51,11 +51,15 @@ class MainWindow: public QWidget{
 		void controlEelBlast(Blast *blast);
 		void controlClam(ClamPowerUp *clam, int loc);
 		void controlBubble(BubblePowerUp *bubble);
+		void displayGameOver();
 		
 		QLabel *usernameDisplay;
 		int score_;
 		QLabel *scoreLabel;
 		QLabel *scoreBox;
+		
+		QLabel *livesLabel;
+		QLabel *numLivesLabel;
 		
 		QGridLayout *mainLayout;
 		
