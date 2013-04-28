@@ -16,6 +16,7 @@ MainWindow::MainWindow(){
 	counter_ = 0;
 	gameSpeed_ = 1;
 	score_ = 0;
+	mineIDCount_ = 1;
 	scoreBox = new QLabel();
 	scoreLabel = new QLabel("SCORE:");
 	scoreBox->setText(QString::number(score_));
@@ -117,13 +118,15 @@ void MainWindow:: generateRandomItem(){
 		itemVec->push_back(bubble);
 	} else if(random <= 36){
 		QPixmap *minePixmap = new QPixmap("./GamePictures/Mine/Mine.png");
-		*minePixmap = minePixmap->scaled(75, 75);
+		*minePixmap = minePixmap->scaled(100, 100);
 		FloatingMine *mine = new FloatingMine(450, randomYMineLoc, minePixmap);
+		mine->setID(mineIDCount_);
+		mineIDCount_++;
 		scene->addItem(mine);
 		itemVec->push_back(mine);
 		mineLocation = itemVec->size()-1;
 		//NOT WORKING
-		connect(mine, SIGNAL(minePressed(FloatingMine*)), this, SLOT(controlMineFromClick(FloatingMine *mine)));
+		connect(mine, SIGNAL(minePressed(FloatingMine*)), this, SLOT(explode(FloatingMine*)));
 	} else if(random == 37){
 		QPixmap *clamPixmap = new QPixmap("./GamePictures/Clam/Clam.png");
 		*clamPixmap = clamPixmap->scaled(50, 50);
@@ -268,9 +271,9 @@ void MainWindow:: handleTimer(){
 		} else if(s == "BlastingEel"){
 			controlEel(dynamic_cast<BlastingEel*>((*itemVec)[i]), i);
 		} else if (s == "Blast"){
-			controlEelBlast(dynamic_cast<Blast*>((*itemVec)[i]));
+			controlEelBlast(dynamic_cast<Blast*>((*itemVec)[i]), i);
 		} else if(s == "Mine"){
-			//controlMine(dynamic_cast<FloatingMine*>((*itemVec)[i]));
+			explode(dynamic_cast<FloatingMine*>((*itemVec)[i]));
 		} else if(s == "Clam"){
 			//controlClam(dynamic_cast<ClamPowerUp*>((*itemVec)[i]));
 		} else if(s == "Bubble"){
@@ -374,14 +377,60 @@ void MainWindow:: controlEel(BlastingEel *eel, int loc){
 	}
 }
 
-void MainWindow:: controlEelBlast(Blast *blast){
-//if done, delete
+void MainWindow:: controlEelBlast(Blast *blast, int loc){
+	if(blast->x() < -1000){
+		GameItem *temp = itemVec->at(loc);
+		itemVec->erase(itemVec->begin() + loc);
+		delete temp;
+	}
 }
-void MainWindow:: controlMineFromClick(FloatingMine *mine){
-	score_+=50;
-	GameItem *tempPtr = mine;
-	delete tempPtr;
-	//erase from array
+
+void MainWindow:: explode(FloatingMine *mine){
+	if(mine->isReadyToExplode()){
+		if(counter_%800 == 0){
+			QPixmap *expPixmap10 = new QPixmap("./GamePictures/MineExplosion/Explosion10.png");
+			mine->setPixmap(*expPixmap10);
+			mine->setIsDoneExploding(true);
+		} else if(counter_%700 == 0){
+			QPixmap *expPixmap9 = new QPixmap("./GamePictures/MineExplosion/Explosion9.png");
+			mine->setPixmap(*expPixmap9);
+		} else if(counter_%600 == 0){
+			QPixmap *expPixmap8 = new QPixmap("./GamePictures/MineExplosion/Explosion8.png");
+			mine->setPixmap(*expPixmap8);
+		} else if(counter_%500 == 0){
+			QPixmap *expPixmap7 = new QPixmap("./GamePictures/MineExplosion/Explosion7.png");
+			mine->setPixmap(*expPixmap7);
+		} else if(counter_%400 == 0){
+			QPixmap *expPixmap6 = new QPixmap("./GamePictures/MineExplosion/Explosion6.png");
+			mine->setPixmap(*expPixmap6);
+		} else if(counter_%300 == 0){
+			QPixmap *expPixmap5 = new QPixmap("./GamePictures/MineExplosion/Explosion5.png");
+			mine->setPixmap(*expPixmap5);
+		} else if(counter_%200 == 0){
+			QPixmap *expPixmap4 = new QPixmap("./GamePictures/MineExplosion/Explosion4.png");
+			mine->setPixmap(*expPixmap4);
+		} else if(counter_%100 == 0){
+			QPixmap *expPixmap3 = new QPixmap("./GamePictures/MineExplosion/Explosion3.png");
+			mine->setPixmap(*expPixmap3);
+		}
+	}
+	
+	if(mine->isDoneExploding()){
+		deleteMine(mine);
+	}
+}
+void MainWindow:: deleteMine(FloatingMine *mine){
+	score_+=(5*gameSpeed_);
+	unsigned int loc = 0;
+	while(loc < itemVec->size()){
+		if(itemVec->at(loc)->getType() == "Mine" && mine->getID() == dynamic_cast<FloatingMine*>(itemVec->at(loc))->getID()){
+			GameItem *temp = itemVec->at(loc);
+			itemVec->erase(itemVec->begin() + loc);
+			delete temp;
+			return;
+		}
+		loc++;
+	}
 }
 
 void MainWindow:: controlClam(ClamPowerUp *clam, int loc){

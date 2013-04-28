@@ -12,6 +12,11 @@ class FloatingMine: public GameItem {
 		void act();
 		void setSpeed(int gameSpeed);
 		string getType();
+		int getID();
+		void setID(int);
+		bool isReadyToExplode();
+		bool isDoneExploding();
+		void setIsDoneExploding(bool);
 		
 	protected:
 		void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -19,6 +24,9 @@ class FloatingMine: public GameItem {
 		void minePressed(FloatingMine*);	
 	private:
 		int counter_;
+		int id_;
+		bool readyToExplode_;
+		bool doneExploding_;
 };
 #endif
 

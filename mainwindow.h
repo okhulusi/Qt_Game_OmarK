@@ -29,11 +29,12 @@ class MainWindow: public QWidget{
 		void handlePauseButton();
 		void handleEel(int x, int y);
 		void deleteBubble();
-		void controlMineFromClick(FloatingMine *mine);
+		void explode(FloatingMine *mine);
 		void generateRandomItem();
 	
 	private:
 		int mineLocation;
+		int mineIDCount_;
 		Player *player;
 		QPixmap *playerPixmap;
 		bool gameStarted;
@@ -48,9 +49,10 @@ class MainWindow: public QWidget{
 		void controlPlayer(Player *player);
 		void controlShark(Shark *shark);
 		void controlEel(BlastingEel *eel, int loc);
-		void controlEelBlast(Blast *blast);
+		void controlEelBlast(Blast *blast, int loc);
 		void controlClam(ClamPowerUp *clam, int loc);
 		void controlBubble(BubblePowerUp *bubble);
+		void deleteMine(FloatingMine*);
 		void displayGameOver();
 		
 		QLabel *usernameDisplay;
