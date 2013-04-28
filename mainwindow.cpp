@@ -20,6 +20,7 @@ MainWindow::MainWindow(){
 	scoreBox = new QLabel();
 	scoreLabel = new QLabel("SCORE:");
 	levelLabel = new QLabel(QString::number(1));
+	levelDisplay = new QLabel("Level:");
 	scoreBox->setText(QString::number(score_));
 	
 	scrollSwitch_ = true;
@@ -36,7 +37,8 @@ MainWindow::MainWindow(){
 	
 	mainLayout->addWidget(scoreLabel, 10, 50, 10, 10);
 	mainLayout->addWidget(scoreBox, 15, 50, 10, 10);
-	mainLayout->addWidget(levelLabel, 30, 50, 10, 10);
+	mainLayout->addWidget(levelDisplay, 30, 50, 10, 10);
+	mainLayout->addWidget(levelLabel, 35, 50, 10, 10);
 	
 	numLivesLabel = new QLabel("Number of Lives: ");
 	livesLabel = new QLabel();

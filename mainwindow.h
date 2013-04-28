@@ -60,6 +60,7 @@ class MainWindow: public QWidget{
 		QLabel *scoreLabel;
 		QLabel *scoreBox;
 		QLabel *levelLabel;
+		QLabel *levelDisplay;
 		
 		QLabel *livesLabel;
 		QLabel *numLivesLabel;
