@@ -19,6 +19,7 @@ MainWindow::MainWindow(){
 	mineIDCount_ = 1;
 	scoreBox = new QLabel();
 	scoreLabel = new QLabel("SCORE:");
+	levelLabel = new QLabel(QString::number(1));
 	scoreBox->setText(QString::number(score_));
 	
 	scrollSwitch_ = true;
@@ -35,6 +36,7 @@ MainWindow::MainWindow(){
 	
 	mainLayout->addWidget(scoreLabel, 10, 50, 10, 10);
 	mainLayout->addWidget(scoreBox, 15, 50, 10, 10);
+	mainLayout->addWidget(levelLabel, 30, 50, 10, 10);
 	
 	numLivesLabel = new QLabel("Number of Lives: ");
 	livesLabel = new QLabel();
@@ -82,6 +84,7 @@ MainWindow::MainWindow(){
 	background2 = new Background(500, 0, backgroundPixmap);
 	scene->addItem(background);
 	scene->addItem(background2);
+	scene->setBackgroundBrush(QBrush(Qt::red));
 	itemVec->push_back(background);
 	itemVec->push_back(background2);
 	
@@ -144,6 +147,7 @@ void MainWindow:: generateRandomItem(){
 }
 void MainWindow:: handleStartButton(){
 	if(!gameStarted){
+		gamePaused = false;
 		usernameDisplay->setText(nameField->text());
 		nameField->setMaxLength(10);
 		if(nameField->text() == ""){
@@ -165,10 +169,12 @@ void MainWindow:: handleStartButton(){
 			gameStarted = true;
 		}
 	} else{
+		gamePaused = false;
 		score_ = 0;
 		gameSpeed_ = 1;
 		scoreBox->setText(QString::number(score_));
 		livesLabel->setText(QString::number(3));
+		levelLabel->setText(QString::number(1));
 		numLivesLabel->setText("Number of Lives: ");
 		scoreLabel->setText("Score: ");
 		disconnect(player, SIGNAL(bubbleTimeOver()), this, SLOT(deleteBubble()));
@@ -207,7 +213,7 @@ void MainWindow:: handleStartButton(){
 }
 
 void MainWindow:: handlePauseButton(){
-	if(gameStarted){
+	if(gameStarted && !player->isDead()){
 		if(timer->isActive()){
 			timer->stop();
 			gamePaused = true;
@@ -257,8 +263,9 @@ void MainWindow:: handleTimer(){
 	
 	
 	if(counter_%20000 == 0){
-		cout << "GameSpeed: " << gameSpeed_ << endl;
+		//cout << "GameSpeed: " << gameSpeed_ << endl;
 		gameSpeed_++;
+		levelLabel->setText(QString::number(gameSpeed_));
 	}
 	for(unsigned int i = 0; i < itemVec->size(); i++){
 		string s = (*itemVec)[i]->getType();

@@ -42,7 +42,7 @@ void Player:: startInvincibility(){
 }
 
 void Player:: stopInvincibility(){
-	cout << "Bubble Time Over." << endl;
+//	cout << "Bubble Time Over." << endl;
 	invincible_ = false;
 	bubbleInvincibility_ = false;
 	emit bubbleTimeOver();
