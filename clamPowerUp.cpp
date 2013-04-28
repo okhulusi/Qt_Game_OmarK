@@ -2,7 +2,7 @@
 
 ClamPowerUp:: ClamPowerUp(int x, int y, QPixmap *pixmap) : GameItem(x,y,pixmap){
 	vx_ = -1;
-	vy_ = -2;
+	vy_ = -1;
 	counter_ = 0;
 	type_ = "Clam";
 }
@@ -14,7 +14,9 @@ ClamPowerUp:: ~ClamPowerUp(){
 void ClamPowerUp:: act(){
 	counter_++;
 	if(counter_ % 40 == 0){
-		 if(counter_ > 200*40){
+		if(counter_ > 400*40){
+			vx_ = -5;
+		} else if(counter_ > 200*40){
 			vx_ = 1;
 		}
 	

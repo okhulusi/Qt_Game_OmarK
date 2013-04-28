@@ -11,6 +11,7 @@
 #include "floatingMine.h"
 #include "background.h"
 #include "player.h"
+#include <QString>
 
 class MainWindow: public QWidget{
 	Q_OBJECT
@@ -27,28 +28,33 @@ class MainWindow: public QWidget{
 		void handleTimer();
 		void handlePauseButton();
 		void handleEel(int x, int y);
+		void deleteBubble();
+		void controlMineFromClick(FloatingMine *mine);
+		void generateRandomItem();
 	
 	private:
+		int mineLocation;
 		Player *player;
 		QPixmap *playerPixmap;
 		bool gameStarted;
+		bool gamePaused;
 		vector<GameItem*> *itemVec;
 		QTimer *timer;
 		int counter_;
 		int gameSpeed_;
 		bool scrollSwitch_;
 		
+		void incrementScore(int);
 		void controlPlayer(Player *player);
 		void controlShark(Shark *shark);
-		void controlEel(BlastingEel *eel);
+		void controlEel(BlastingEel *eel, int loc);
 		void controlEelBlast(Blast *blast);
-		void controlMine(FloatingMine *mine);
-		void controlClam(ClamPowerUp *clam);
+		void controlClam(ClamPowerUp *clam, int loc);
 		void controlBubble(BubblePowerUp *bubble);
 		
-		QString username;
+		QLabel *usernameDisplay;
 		int score_;
-		QString score;
+		QLabel *scoreBox;
 		
 		QGridLayout *mainLayout;
 		

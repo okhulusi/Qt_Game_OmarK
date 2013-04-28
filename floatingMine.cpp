@@ -23,7 +23,7 @@ void FloatingMine:: act(){
 void FloatingMine:: mousePressEvent(QGraphicsSceneMouseEvent *event){
 	if(event->button() == Qt::LeftButton){
 		event = event;
-		emit minePressed(true);
+		emit minePressed(this);
 	}
 }
 

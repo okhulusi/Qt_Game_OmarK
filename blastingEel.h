@@ -13,6 +13,7 @@ class BlastingEel : public GameItem {
 		void act();
 		void setSpeed(int gameSpeed);
 		string getType();
+		int getCounter();
 	
 	signals:
 		void firing(int, int);

@@ -11,8 +11,9 @@ Player:: Player(int x, int y, QPixmap *pixmap) : GameItem(x, y, pixmap){
 	counter_ = 0;
 	imageNum_ = 1;
 	
-	lives_ = 1;
+	lives_ = 3;
 	invincible_  = false;
+	bubbleInvincibility_ = false;
 	
 	type_ = "Player";
 }
@@ -25,17 +26,25 @@ int Player:: getLives(){
 }
 
 void Player:: bubbleTime(){
+	if(invincible_ == false){
 	cout << "BUBBLE TIME" << endl;
-	invincible_ = true;
+		bubbleInvincibility_ = true;
+		startInvincibility();
+	}
 }
 
 void Player:: startInvincibility(){
-	invincible_ = true;
-	counter_ = 0;
+	if(invincible_ == false){
+		invincible_ = true;
+		counter_ = 0;
+	}
 }
 
 void Player:: stopInvincibility(){
+	cout << "Bubble Time Over." << endl;
 	invincible_ = false;
+	bubbleInvincibility_ = false;
+	emit bubbleTimeOver();
 }
 
 void Player:: addLife(){
@@ -56,7 +65,9 @@ bool Player:: isDead(){
 
 void Player:: act(){
 	counter_++;
-	if(counter_ > 1000 && invincible_ == true){
+	if(bubbleInvincibility_ == false && counter_ > 1000 && invincible_ == true){
+		stopInvincibility();
+	} else if(bubbleInvincibility_ == true && counter_ > 10000 && invincible_ == true){
 		stopInvincibility();
 	}
 }

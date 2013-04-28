@@ -14,6 +14,10 @@ BlastingEel:: ~BlastingEel(){
 
 }
 
+int BlastingEel:: getCounter(){
+	return counter_;
+}
+
 void BlastingEel:: act(){
 	counter_++;
 	if(counter_%1000 == 0){

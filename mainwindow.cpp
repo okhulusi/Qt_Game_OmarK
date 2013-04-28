@@ -1,6 +1,7 @@
 #include <QtGui/QApplication>
 #include "mainwindow.h"
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -9,11 +10,18 @@ MainWindow::~MainWindow(){
 }
 
 MainWindow::MainWindow(){
+	srand(time(NULL));
+	
 	itemVec = new vector<GameItem*>();
 	counter_ = 0;
 	gameSpeed_ = 1;
+	score_ = 0;
+	scoreBox = new QLabel();
+	scoreBox->setText(QString::number(score_));
+	
 	scrollSwitch_ = true;
 	gameStarted = false;
+	gamePaused = false;
 	
 	timer = new QTimer();
 	timer->setInterval(1);
@@ -22,6 +30,7 @@ MainWindow::MainWindow(){
 	mainLayout = new QGridLayout();
 	scene = new QGraphicsScene(0, 0, 500, 500);
 	view = new QGraphicsView(scene);
+	mainLayout->addWidget(scoreBox, 10, 50, 5, 5);
 	
 	view->setFixedSize(505, 505);
 	view->setWindowTitle("Under the Deep Blue Sea");
@@ -35,6 +44,8 @@ MainWindow::MainWindow(){
 	startMenuLayout->addWidget(nameLabel);
 	nameField = new QLineEdit();
 	startMenuLayout->addWidget(nameField);
+	usernameDisplay = new QLabel(nameField->text());
+	startMenuLayout->addWidget(usernameDisplay);
 	
 	//Start Button
 	startButton = new QPushButton();
@@ -72,58 +83,116 @@ MainWindow::MainWindow(){
 }
 
 void MainWindow:: keyPressEvent(QKeyEvent *e){
-	if(gameStarted){
+	if(gameStarted && !gamePaused && !player->isDead()){
 		player->keyPressEvent(e);
 	}
 }
 
+void MainWindow:: generateRandomItem(){
+	int random = rand()%50;
+	int randomYLoc = rand()%450;
+	if(random <= 20){
+		QPixmap *sharkPixmap = new QPixmap("./GamePictures/Shark/Shark3.png");
+		Shark *shark = new Shark(450, randomYLoc, sharkPixmap);
+		scene->addItem(shark);
+		itemVec->push_back(shark);
+	} else if(random == 21){
+		QPixmap *bubblePixmap = new QPixmap("./GamePictures/Bubble/Bubble.png");
+		*bubblePixmap = bubblePixmap->scaled(150, 150);
+		BubblePowerUp *bubble = new BubblePowerUp(450, randomYLoc, bubblePixmap);
+		scene->addItem(bubble);
+		itemVec->push_back(bubble);
+	} else if(random <= 36){
+		QPixmap *minePixmap = new QPixmap("./GamePictures/Mine/Mine.png");
+		*minePixmap = minePixmap->scaled(75, 75);
+		FloatingMine *mine = new FloatingMine(450, randomYLoc, minePixmap);
+		scene->addItem(mine);
+		itemVec->push_back(mine);
+		mineLocation = itemVec->size()-1;
+		//NOT WORKING
+		connect(mine, SIGNAL(minePressed(FloatingMine*)), this, SLOT(controlMineFromClick(mine)));
+	} else if(random == 37){
+		QPixmap *clamPixmap = new QPixmap("./GamePictures/Clam/Clam.png");
+		*clamPixmap = clamPixmap->scaled(50, 50);
+		ClamPowerUp *clam = new ClamPowerUp(400, randomYLoc, clamPixmap);
+		scene->addItem(clam);
+		itemVec->push_back(clam); 
+	} else if(random <= 49){
+		QPixmap *eelPixmap = new QPixmap("./GamePictures/Eel/Eel3.png");
+		*eelPixmap = eelPixmap->scaled(200, 200);
+		BlastingEel *eel = new BlastingEel(450, randomYLoc, eelPixmap);
+		connect(eel, SIGNAL(firing(int, int)), this, SLOT(handleEel(int, int)));
+		scene->addItem(eel);
+		itemVec->push_back(eel); 
+	} else {}
+}
 void MainWindow:: handleStartButton(){
-	username = nameField->text();
-	timer->start();
+	if(!gameStarted){
+		usernameDisplay->setText(nameField->text());
+		nameField->setMaxLength(10);
+		if(nameField->text() == ""){
+			usernameDisplay->setText("Please Enter a Name.");
+			return;
+		} else{
+			usernameDisplay->setText(nameField->text() + ", Have Fun!");
+			timer->start();
 	
-	playerPixmap = new QPixmap("./GamePictures/Mermaid/Mermaid5.png");
-	player = new Player(0,200,playerPixmap);
-	scene->addItem(player);
-	itemVec->push_back(player);
+			playerPixmap = new QPixmap("./GamePictures/Mermaid/Mermaid5.png");
+			player = new Player(0,200,playerPixmap);
+			connect(player, SIGNAL(bubbleTimeOver()), this, SLOT(deleteBubble()));
+			scene->addItem(player);
+			itemVec->push_back(player);
 	
-	QPixmap *sharkPixmap = new QPixmap("./GamePictures/Shark/Shark3.png");
-	Shark *shark = new Shark(450, 0, sharkPixmap);
-	scene->addItem(shark);
-	itemVec->push_back(shark);
+			for(int i = 0; i < 3; i++){
+				generateRandomItem();
+			}	
+			gameStarted = true;
+		}
+	} else{
+		score_ = 0;
+		scoreBox->setText(QString::number(score_));
+		disconnect(player, SIGNAL(bubbleTimeOver()), this, SLOT(deleteBubble()));
+		scene->removeItem(player);
+		while(itemVec->size() > 2){
+			GameItem *temp = itemVec->at(itemVec->size()-1);
+			itemVec->pop_back();
+			delete temp;
+		}
+		
+		itemVec = new vector<GameItem*>;
+		itemVec->push_back(background);
+		itemVec->push_back(background2);
+		
+		if(nameField->text() == ""){
+			usernameDisplay->setText("Please Enter a Name.");
+			return;
+		} else{
+			usernameDisplay->setText(nameField->text() + ", Have Fun!");
+			timer->start();
 	
-	QPixmap *bubblePixmap = new QPixmap("./GamePictures/Bubble/Bubble.png");
-	*bubblePixmap = bubblePixmap->scaled(75, 75);
-	BubblePowerUp *bubble = new BubblePowerUp(450, 250, bubblePixmap);
-	scene->addItem(bubble);
-	itemVec->push_back(bubble);
+			playerPixmap = new QPixmap("./GamePictures/Mermaid/Mermaid5.png");
+			player = new Player(0,200,playerPixmap);
+			connect(player, SIGNAL(bubbleTimeOver()), this, SLOT(deleteBubble()));
+			scene->addItem(player);
+			itemVec->push_back(player);
 	
-	QPixmap *minePixmap = new QPixmap("./GamePictures/Mine/Mine.png");
-	*minePixmap = minePixmap->scaled(75, 75);
-	FloatingMine *mine = new FloatingMine(450, 300, minePixmap);
-	scene->addItem(mine);
-	itemVec->push_back(mine);
-	
-	QPixmap *clamPixmap = new QPixmap("./GamePictures/Clam/Clam.png");
-	*clamPixmap = clamPixmap->scaled(50, 50);
-	ClamPowerUp *clam = new ClamPowerUp(400, 400, clamPixmap);
-	scene->addItem(clam);
-	itemVec->push_back(clam); 
-	
-	QPixmap *eelPixmap = new QPixmap("./GamePictures/Eel/Eel3.png");
-	*eelPixmap = eelPixmap->scaled(200, 200);
-	BlastingEel *eel = new BlastingEel(450, 100, eelPixmap);
-	connect(eel, SIGNAL(firing(int, int)), this, SLOT(handleEel(int, int)));
-	scene->addItem(eel);
-	itemVec->push_back(eel); 
-	
-	gameStarted = true;
+			for(int i = 0; i < 3; i++){
+				generateRandomItem();
+			}	
+			gameStarted = true;
+		}
+		
+		//restart
+	}
 }
 
 void MainWindow:: handlePauseButton(){
 	if(timer->isActive()){
 		timer->stop();
+		gamePaused = true;
 	} else {
 		timer->start();
+		gamePaused = false;
 	}
 }
 
@@ -137,9 +206,20 @@ void MainWindow:: scrollBackground(){
 	}
 }
 
+void MainWindow:: incrementScore(int add){
+	score_+=add;
+	scoreBox->setText(QString::number(score_));
+}
 void MainWindow:: handleTimer(){
 	counter_++;
 	scrollBackground();
+	
+	if(counter_%1000 == 0){
+		generateRandomItem();
+	}
+	if(counter_%1000 == 0){
+		incrementScore(1);
+	} 
 	
 	
 //	if(counter_%10000 == 0){
@@ -156,19 +236,18 @@ void MainWindow:: handleTimer(){
 		} else if(s == "Shark"){
 			controlShark(dynamic_cast<Shark*>((*itemVec)[i]));
 		} else if(s == "BlastingEel"){
-			controlEel(dynamic_cast<BlastingEel*>((*itemVec)[i]));
+			controlEel(dynamic_cast<BlastingEel*>((*itemVec)[i]), i);
 		} else if (s == "Blast"){
 			controlEelBlast(dynamic_cast<Blast*>((*itemVec)[i]));
 		} else if(s == "Mine"){
-			controlMine(dynamic_cast<FloatingMine*>((*itemVec)[i]));
+			//controlMine(dynamic_cast<FloatingMine*>((*itemVec)[i]));
 		} else if(s == "Clam"){
 			//controlClam(dynamic_cast<ClamPowerUp*>((*itemVec)[i]));
 		} else if(s == "Bubble"){
-			controlBubble(dynamic_cast<BubblePowerUp*>((*itemVec)[i]));
+			//controlBubble(dynamic_cast<BubblePowerUp*>((*itemVec)[i]));
 		} else{}
 		//cout << "Type: " << s << endl;
 	}
-	score+=1;
 }
 
 void MainWindow:: controlPlayer(Player *player){
@@ -188,24 +267,36 @@ void MainWindow:: controlPlayer(Player *player){
 	for(unsigned int i = 0; i < itemVec->size(); i++){
 		if(player->isDead()){
 			timer->stop();
-			 /*for(iterator it = itemVec->begin(); it != itemVec->end(); ++it){
-				delete *it;
-				//YOU LOSE
-			} */
-			return;
+			/*while(itemVec->size() > 2){
+				GameItem *temp = itemVec->at(itemVec->size()-1);
+				itemVec->pop_back();
+				delete temp;
+			}*/
 		}
 		
 		if((*itemVec)[i]->getType() != "Background" && player->collidesWithItem((*itemVec)[i])){
 			if((*itemVec)[i]->getType() == "Bubble"){
 				controlBubble(dynamic_cast<BubblePowerUp*>((*itemVec)[i]));
 			} else if((*itemVec)[i]->getType() == "Clam"){
-				controlClam(dynamic_cast<ClamPowerUp*>((*itemVec)[i]));
+				//controlClam(dynamic_cast<ClamPowerUp*>((*itemVec)[i]), i);
 			} else if((*itemVec)[i]->getType() == "Shark"){
+				if(!player->isInvincible()){
+					player->startInvincibility();
+					player->loseLife();
+				}
+			} else if((*itemVec)[i]->getType() == "Blast"){
 				if(!(player->isInvincible())){
+					player->startInvincibility();
+					player->loseLife();
+				}
+			} else if((*itemVec)[i]->getType() == "Clam"){
+				player->addLife();
+			} else if((*itemVec)[i]->getType() == "Mine"){
+				if(!player->isInvincible()){
 					player->loseLife();
 					player->startInvincibility();
 				}
-			}
+			}	
 		}
 	}
 	//cout << "Player Lives: " << player->getLives() << endl;
@@ -230,25 +321,45 @@ void MainWindow:: handleEel(int x, int y){
 	scene->addItem(blast1);
 	itemVec->push_back(blast1); 
 }
-void MainWindow:: controlEel(BlastingEel *eel){
-//	if(firing){
-	
-//	}
+void MainWindow:: controlEel(BlastingEel *eel, int loc){
+	if(eel->getCounter() == 5000){
+		GameItem *temp = itemVec->at(loc);
+		itemVec->erase(itemVec->begin() + loc);
+		delete temp;
+	}
 }
 
 void MainWindow:: controlEelBlast(Blast *blast){
-	
+//if done, delete
 }
-void MainWindow:: controlMine(FloatingMine *mine){
-
+void MainWindow:: controlMineFromClick(FloatingMine *mine){
+	score_+=50;
+	GameItem *tempPtr = mine;
+	delete tempPtr;
+	//erase from array
 }
 
-void MainWindow:: controlClam(ClamPowerUp *clam){
+void MainWindow:: controlClam(ClamPowerUp *clam, int loc){
 	player->addLife();
-	scene->removeItem(clam);
-//	delete clam;
+	GameItem *temp = itemVec->at(loc);
+	itemVec->erase(itemVec->begin() + loc);
+	delete temp;
 }
 
 void MainWindow:: controlBubble(BubblePowerUp *bubble){
-	//player->bubbleTime();
+	player->bubbleTime();
+	bubble->setPos(player->x() - 30, player->y() - 30);
+}
+
+void MainWindow:: deleteBubble(){
+	int loc = 0;
+	while(loc < itemVec->size()){
+		if(itemVec->at(loc)->getType() == "Bubble"){
+			GameItem *temp = itemVec->at(loc);
+			itemVec->erase(itemVec->begin() + loc);
+			delete temp;
+			return;
+		}
+		loc++;
+	}
 }

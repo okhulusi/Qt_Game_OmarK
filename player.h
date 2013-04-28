@@ -29,6 +29,9 @@ class Player : public GameItem{
 	void keyPressEvent(QKeyEvent *e);
 	void keyReleaseEvent(QKeyEvent *e);
 	
+	signals:
+		void bubbleTimeOver();
+		
 	public slots:
 		void stopInvincibility();
 	
@@ -39,6 +42,7 @@ class Player : public GameItem{
 		
 		int lives_;
 		bool invincible_;
+		bool bubbleInvincibility_;
 		
 };
 #endif

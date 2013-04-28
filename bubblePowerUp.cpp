@@ -1,7 +1,7 @@
 #include "bubblePowerUp.h"
 BubblePowerUp:: BubblePowerUp(int x, int y, QPixmap *pixmap) : GameItem(x,y,pixmap) {
-	vx_ = -1;
-	vy_ = -1;
+	vx_ = -20;
+	vy_ = -10;
 	counter_ = 0;
 	
 	type_ = "Bubble";
@@ -13,10 +13,12 @@ BubblePowerUp:: ~BubblePowerUp(){
 
 void BubblePowerUp:: act(){
 	counter_++;
-	setPos(x() + vx_*gameSpeed_, y() + vy_*gameSpeed_);
+	if(counter_%40 == 0){
+		setPos(x() + vx_*gameSpeed_, y() + vy_*gameSpeed_);
 	
-	if(counter_%200 == 0){
-		vy_*= -1;
+		if(counter_%200 == 0){
+			vy_*= -1;
+		}
 	}
 }
 

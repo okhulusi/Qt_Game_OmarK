@@ -16,7 +16,7 @@ class FloatingMine: public GameItem {
 	protected:
 		void mousePressEvent(QGraphicsSceneMouseEvent *event);
 	signals:
-		void minePressed(bool);	
+		void minePressed(FloatingMine*);	
 	private:
 		int counter_;
 };
