@@ -29,6 +29,7 @@ class MainWindow: public QWidget{
 	
 	private:
 		Player *player;
+		QPixmap *playerPixmap;
 		bool gameStarted;
 		vector<GameItem*> *itemVec;
 		QTimer *timer;

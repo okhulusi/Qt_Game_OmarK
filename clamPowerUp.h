@@ -13,6 +13,7 @@ class ClamPowerUp : public GameItem {
 		string getType();
 		
 	private:
-};
+		int counter_;
+};	
 #endif
 

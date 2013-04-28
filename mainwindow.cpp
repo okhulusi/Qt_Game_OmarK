@@ -81,7 +81,7 @@ void MainWindow:: handleStartButton(){
 	username = nameField->text();
 	timer->start();
 	
-	QPixmap *playerPixmap = new QPixmap("./GamePictures/Mermaid/Mermaid1.png");
+	playerPixmap = new QPixmap("./GamePictures/Mermaid/Mermaid5.png");
 	player = new Player(0,200,playerPixmap);
 	scene->addItem(player);
 	itemVec->push_back(player);
@@ -102,6 +102,12 @@ void MainWindow:: handleStartButton(){
 	FloatingMine *mine = new FloatingMine(450, 300, minePixmap);
 	scene->addItem(mine);
 	itemVec->push_back(mine);
+	
+	QPixmap *clamPixmap = new QPixmap("./GamePictures/Clam/Clam.png");
+	*clamPixmap = clamPixmap->scaled(50, 50);
+	ClamPowerUp *clam = new ClamPowerUp(400, 400, clamPixmap);
+	scene->addItem(clam);
+	itemVec->push_back(clam); 
 	
 	gameStarted = true;
 }
@@ -128,6 +134,7 @@ void MainWindow:: handleTimer(){
 	counter_++;
 	scrollBackground();
 	
+	
 //	if(counter_%10000 == 0){
 //		gameSpeed_++;
 //	}
@@ -148,7 +155,7 @@ void MainWindow:: handleTimer(){
 		} else if(s == "Mine"){
 			controlMine(dynamic_cast<FloatingMine*>((*itemVec)[i]));
 		} else if(s == "Clam"){
-			controlClam(dynamic_cast<ClamPowerUp*>((*itemVec)[i]));
+			//controlClam(dynamic_cast<ClamPowerUp*>((*itemVec)[i]));
 		} else if(s == "Bubble"){
 			controlBubble(dynamic_cast<BubblePowerUp*>((*itemVec)[i]));
 		} else{}
@@ -158,12 +165,26 @@ void MainWindow:: handleTimer(){
 }
 
 void MainWindow:: controlPlayer(Player *player){
+	if(counter_%2000 == 0){
+		QPixmap *playerPixmap4 = new QPixmap("./GamePictures/Mermaid/Mermaid4.png");
+		player->setPixmap(*playerPixmap4);
+	} else if(counter_%1500 == 0){
+		QPixmap *playerPixmap3 = new QPixmap("./GamePictures/Mermaid/Mermaid3.png");
+		player->setPixmap(*playerPixmap3);
+	} else if(counter_%1000 == 0){
+		QPixmap *playerPixmap2 = new QPixmap("./GamePictures/Mermaid/Mermaid2.png");
+		player->setPixmap(*playerPixmap2);
+	} else if(counter_%500 == 0){
+		QPixmap *playerPixmap1 = new QPixmap("./GamePictures/Mermaid/Mermaid5.png");
+		player->setPixmap(*playerPixmap1);
+	}
 	for(unsigned int i = 0; i < itemVec->size(); i++){
 		if(player->isDead()){
-			for(unsigned int j = 0; j < itemVec->size(); j++){
-				delete (*itemVec)[i];
+			timer->stop();
+			 /*for(iterator it = itemVec->begin(); it != itemVec->end(); ++it){
+				delete *it;
 				//YOU LOSE
-			}
+			} */
 			return;
 		}
 		
@@ -184,6 +205,15 @@ void MainWindow:: controlPlayer(Player *player){
 }
 
 void MainWindow:: controlShark(Shark *shark){
+	if(shark->isMoving()){
+		if(counter_%20 == 0){
+			QPixmap *sharkPixmap2 = new QPixmap("./GamePictures/Shark/Shark5");
+			shark->setPixmap(*sharkPixmap2);
+		} else if(counter_%10 == 0){
+			QPixmap *sharkPixmap3 = new QPixmap("./GamePictures/Shark/Shark4");
+			shark->setPixmap(*sharkPixmap3);
+		}
+	}
 }
 
 void MainWindow:: controlEel(BlastingEel *eel){
@@ -199,6 +229,8 @@ void MainWindow:: controlMine(FloatingMine *mine){
 
 void MainWindow:: controlClam(ClamPowerUp *clam){
 	player->addLife();
+	scene->removeItem(clam);
+//	delete clam;
 }
 
 void MainWindow:: controlBubble(BubblePowerUp *bubble){

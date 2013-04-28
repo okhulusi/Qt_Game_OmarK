@@ -11,7 +11,7 @@ Player:: Player(int x, int y, QPixmap *pixmap) : GameItem(x, y, pixmap){
 	counter_ = 0;
 	imageNum_ = 1;
 	
-	lives_ = 3;
+	lives_ = 1;
 	invincible_  = false;
 	
 	type_ = "Player";
