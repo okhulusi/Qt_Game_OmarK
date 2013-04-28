@@ -16,7 +16,7 @@ void Background:: setSpeed(int gameSpeed){
 	gameSpeed_ = gameSpeed;
 }
 void Background:: act(){
-	setPos(x() +vx_,y() + vy_);
+	setPos(x() +vx_*gameSpeed_, y() + vy_*gameSpeed_);
 }
 
 string Background:: getType(){

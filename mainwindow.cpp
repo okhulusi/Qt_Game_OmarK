@@ -90,7 +90,7 @@ void MainWindow:: keyPressEvent(QKeyEvent *e){
 
 void MainWindow:: generateRandomItem(){
 	int random = rand()%50;
-	int randomYLoc = rand()%450;
+	int randomYLoc = rand()%425;
 	if(random <= 20){
 		QPixmap *sharkPixmap = new QPixmap("./GamePictures/Shark/Shark3.png");
 		Shark *shark = new Shark(450, randomYLoc, sharkPixmap);
@@ -110,7 +110,7 @@ void MainWindow:: generateRandomItem(){
 		itemVec->push_back(mine);
 		mineLocation = itemVec->size()-1;
 		//NOT WORKING
-		connect(mine, SIGNAL(minePressed(FloatingMine*)), this, SLOT(controlMineFromClick(mine)));
+		connect(mine, SIGNAL(minePressed(FloatingMine*)), this, SLOT(controlMineFromClick(FloatingMine *mine)));
 	} else if(random == 37){
 		QPixmap *clamPixmap = new QPixmap("./GamePictures/Clam/Clam.png");
 		*clamPixmap = clamPixmap->scaled(50, 50);
@@ -120,7 +120,7 @@ void MainWindow:: generateRandomItem(){
 	} else if(random <= 49){
 		QPixmap *eelPixmap = new QPixmap("./GamePictures/Eel/Eel3.png");
 		*eelPixmap = eelPixmap->scaled(200, 200);
-		BlastingEel *eel = new BlastingEel(450, randomYLoc, eelPixmap);
+		BlastingEel *eel = new BlastingEel(425, randomYLoc, eelPixmap);
 		connect(eel, SIGNAL(firing(int, int)), this, SLOT(handleEel(int, int)));
 		scene->addItem(eel);
 		itemVec->push_back(eel); 
@@ -214,17 +214,22 @@ void MainWindow:: handleTimer(){
 	counter_++;
 	scrollBackground();
 	
-	if(counter_%1000 == 0){
+	if(counter_%(3500/gameSpeed_) == 0){
 		generateRandomItem();
 	}
-	if(counter_%1000 == 0){
+	if(gameSpeed_ == 3 && counter_ > 80000){	//Becomes Impossible
+		generateRandomItem();
+		generateRandomItem();	
+	}
+	if(counter_%(1000/gameSpeed_) == 0){
 		incrementScore(1);
 	} 
 	
 	
-//	if(counter_%10000 == 0){
-//		gameSpeed_++;
-//	}
+	if(counter_%20000 == 0 && gameSpeed_ < 3){
+		cout << "GameSpeed: " << gameSpeed_ << endl;
+		gameSpeed_++;
+	}
 	for(unsigned int i = 0; i < itemVec->size(); i++){
 		string s = (*itemVec)[i]->getType();
 		
@@ -278,7 +283,7 @@ void MainWindow:: controlPlayer(Player *player){
 			if((*itemVec)[i]->getType() == "Bubble"){
 				controlBubble(dynamic_cast<BubblePowerUp*>((*itemVec)[i]));
 			} else if((*itemVec)[i]->getType() == "Clam"){
-				//controlClam(dynamic_cast<ClamPowerUp*>((*itemVec)[i]), i);
+				controlClam(dynamic_cast<ClamPowerUp*>((*itemVec)[i]), i);
 			} else if((*itemVec)[i]->getType() == "Shark"){
 				if(!player->isInvincible()){
 					player->startInvincibility();
@@ -304,12 +309,26 @@ void MainWindow:: controlPlayer(Player *player){
 
 void MainWindow:: controlShark(Shark *shark){
 	if(shark->isMoving()){
-		if(counter_%20 == 0){
+		if(counter_%800 == 0){
 			QPixmap *sharkPixmap2 = new QPixmap("./GamePictures/Shark/Shark5");
 			shark->setPixmap(*sharkPixmap2);
-		} else if(counter_%10 == 0){
+		} else if(counter_%400 == 0){
 			QPixmap *sharkPixmap3 = new QPixmap("./GamePictures/Shark/Shark4");
 			shark->setPixmap(*sharkPixmap3);
+		}
+		
+		if(shark->x() < -1000){
+			int loc = 0;
+			while(loc < itemVec->size()){
+				if(itemVec->at(loc)->getType() == "Shark"){
+					GameItem *temp = itemVec->at(loc);
+					itemVec->erase(itemVec->begin() + loc);
+					delete temp;
+					return;
+				}
+				loc++;
+			}
+				
 		}
 	}
 }
