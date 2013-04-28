@@ -265,7 +265,7 @@ void MainWindow:: handleTimer(){
 		
 		(*itemVec)[i]->setSpeed(gameSpeed_);
 		(*itemVec)[i]->act();
-		
+		 
 		if(s == "Player"){
 			controlPlayer(dynamic_cast<Player*>((*itemVec)[i]));
 		} else if(s == "Shark"){
