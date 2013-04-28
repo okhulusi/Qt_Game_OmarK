@@ -207,12 +207,14 @@ void MainWindow:: handleStartButton(){
 }
 
 void MainWindow:: handlePauseButton(){
-	if(timer->isActive()){
-		timer->stop();
-		gamePaused = true;
-	} else {
-		timer->start();
-		gamePaused = false;
+	if(gameStarted){
+		if(timer->isActive()){
+			timer->stop();
+			gamePaused = true;
+		} else {
+			timer->start();
+			gamePaused = false;
+		}
 	}
 }
 
@@ -284,25 +286,26 @@ void MainWindow:: handleTimer(){
 }
 
 void MainWindow:: controlPlayer(Player *player){
-	if(counter_%2000 == 0){
-		QPixmap *playerPixmap4 = new QPixmap("./GamePictures/Mermaid/Mermaid4.png");
-		player->setPixmap(*playerPixmap4);
-	} else if(counter_%1500 == 0){
-		QPixmap *playerPixmap3 = new QPixmap("./GamePictures/Mermaid/Mermaid3.png");
-		player->setPixmap(*playerPixmap3);
-	} else if(counter_%1000 == 0){
-		QPixmap *playerPixmap2 = new QPixmap("./GamePictures/Mermaid/Mermaid2.png");
-		player->setPixmap(*playerPixmap2);
-	} else if(counter_%500 == 0){
-		QPixmap *playerPixmap1 = new QPixmap("./GamePictures/Mermaid/Mermaid5.png");
-		player->setPixmap(*playerPixmap1);
+	if(!player->getLostLife()){
+		if(counter_%2000 == 0){
+			QPixmap *playerPixmap4 = new QPixmap("./GamePictures/Mermaid/Mermaid4.png");
+			player->setPixmap(*playerPixmap4);
+		} else if(counter_%1500 == 0){
+			QPixmap *playerPixmap3 = new QPixmap("./GamePictures/Mermaid/Mermaid3.png");
+			player->setPixmap(*playerPixmap3);
+		} else if(counter_%1000 == 0){
+			QPixmap *playerPixmap2 = new QPixmap("./GamePictures/Mermaid/Mermaid2.png");
+			player->setPixmap(*playerPixmap2);
+		} else if(counter_%500 == 0){
+			QPixmap *playerPixmap1 = new QPixmap("./GamePictures/Mermaid/Mermaid5.png");
+			player->setPixmap(*playerPixmap1);
+		}
 	}
-	for(unsigned int i = 0; i < itemVec->size(); i++){
-		if(player->isDead()){
+		for(unsigned int i = 0; i < itemVec->size(); i++){
+			if(player->isDead()){
 			timer->stop();
 			score_ = 0;
 			displayGameOver();
-			//delete stuff
 		}
 		
 		if((*itemVec)[i]->getType() != "Background" && player->collidesWithItem((*itemVec)[i])){
@@ -434,6 +437,7 @@ void MainWindow:: deleteMine(FloatingMine *mine){
 }
 
 void MainWindow:: controlClam(ClamPowerUp *clam, int loc){
+	clam = clam;
 	player->addLife();
 	GameItem *temp = itemVec->at(loc);
 	itemVec->erase(itemVec->begin() + loc);

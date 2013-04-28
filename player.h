@@ -21,6 +21,8 @@ class Player : public GameItem{
 		
 		void addLife();
 		void loseLife();
+		void lostLifeAnimation(bool didLoseLife);
+		bool getLostLife();
 		bool isInvincible();
 		void startInvincibility();
 		bool isDead();
@@ -43,6 +45,7 @@ class Player : public GameItem{
 		int lives_;
 		bool invincible_;
 		bool bubbleInvincibility_;
+		bool lostLife_;
 		
 };
 #endif
