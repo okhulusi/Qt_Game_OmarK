@@ -12,6 +12,7 @@ MainWindow::~MainWindow(){
 MainWindow::MainWindow(){
 	srand(time(NULL));
 	
+	setWindowTitle("Under The Deep Blue Sea");
 	itemVec = new vector<GameItem*>();
 	counter_ = 0;
 	gameSpeed_ = 1;
