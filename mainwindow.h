@@ -54,6 +54,7 @@ class MainWindow: public QWidget{
 		
 		QLabel *usernameDisplay;
 		int score_;
+		QLabel *scoreLabel;
 		QLabel *scoreBox;
 		
 		QGridLayout *mainLayout;

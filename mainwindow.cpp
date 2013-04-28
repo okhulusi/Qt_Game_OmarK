@@ -17,6 +17,7 @@ MainWindow::MainWindow(){
 	gameSpeed_ = 1;
 	score_ = 0;
 	scoreBox = new QLabel();
+	scoreLabel = new QLabel("SCORE:");
 	scoreBox->setText(QString::number(score_));
 	
 	scrollSwitch_ = true;
@@ -30,7 +31,10 @@ MainWindow::MainWindow(){
 	mainLayout = new QGridLayout();
 	scene = new QGraphicsScene(0, 0, 500, 500);
 	view = new QGraphicsView(scene);
-	mainLayout->addWidget(scoreBox, 10, 50, 5, 5);
+	//startMenuLayout->addWidget(scoreLabel);
+	//startMenuLayout->addWidget(scoreBox);
+	mainLayout->addWidget(scoreLabel, 10, 50, 10, 10);
+	mainLayout->addWidget(scoreBox, 15, 50, 10, 10);
 	
 	view->setFixedSize(505, 505);
 	view->setWindowTitle("Under the Deep Blue Sea");
@@ -90,22 +94,26 @@ void MainWindow:: keyPressEvent(QKeyEvent *e){
 
 void MainWindow:: generateRandomItem(){
 	int random = rand()%50;
-	int randomYLoc = rand()%425;
+	int randomYSharkLoc = rand()%425;
+	int randomYBubbleLoc = rand()%425;
+	int randomYMineLoc = rand()%425;
+	int randomYClamLoc = rand()%425;
+	int randomYEelLoc = rand()%300;
 	if(random <= 20){
 		QPixmap *sharkPixmap = new QPixmap("./GamePictures/Shark/Shark3.png");
-		Shark *shark = new Shark(450, randomYLoc, sharkPixmap);
+		Shark *shark = new Shark(450, randomYSharkLoc, sharkPixmap);
 		scene->addItem(shark);
 		itemVec->push_back(shark);
 	} else if(random == 21){
 		QPixmap *bubblePixmap = new QPixmap("./GamePictures/Bubble/Bubble.png");
 		*bubblePixmap = bubblePixmap->scaled(150, 150);
-		BubblePowerUp *bubble = new BubblePowerUp(450, randomYLoc, bubblePixmap);
+		BubblePowerUp *bubble = new BubblePowerUp(450, randomYBubbleLoc, bubblePixmap);
 		scene->addItem(bubble);
 		itemVec->push_back(bubble);
 	} else if(random <= 36){
 		QPixmap *minePixmap = new QPixmap("./GamePictures/Mine/Mine.png");
 		*minePixmap = minePixmap->scaled(75, 75);
-		FloatingMine *mine = new FloatingMine(450, randomYLoc, minePixmap);
+		FloatingMine *mine = new FloatingMine(450, randomYMineLoc, minePixmap);
 		scene->addItem(mine);
 		itemVec->push_back(mine);
 		mineLocation = itemVec->size()-1;
@@ -114,13 +122,13 @@ void MainWindow:: generateRandomItem(){
 	} else if(random == 37){
 		QPixmap *clamPixmap = new QPixmap("./GamePictures/Clam/Clam.png");
 		*clamPixmap = clamPixmap->scaled(50, 50);
-		ClamPowerUp *clam = new ClamPowerUp(400, randomYLoc, clamPixmap);
+		ClamPowerUp *clam = new ClamPowerUp(400, randomYClamLoc, clamPixmap);
 		scene->addItem(clam);
 		itemVec->push_back(clam); 
 	} else if(random <= 49){
 		QPixmap *eelPixmap = new QPixmap("./GamePictures/Eel/Eel3.png");
 		*eelPixmap = eelPixmap->scaled(200, 200);
-		BlastingEel *eel = new BlastingEel(425, randomYLoc, eelPixmap);
+		BlastingEel *eel = new BlastingEel(425, randomYEelLoc, eelPixmap);
 		connect(eel, SIGNAL(firing(int, int)), this, SLOT(handleEel(int, int)));
 		scene->addItem(eel);
 		itemVec->push_back(eel); 
@@ -217,7 +225,7 @@ void MainWindow:: handleTimer(){
 	if(counter_%(3500/gameSpeed_) == 0){
 		generateRandomItem();
 	}
-	if(gameSpeed_ == 3 && counter_ > 80000){	//Becomes Impossible
+	if(counter_%100 == 0 && gameSpeed_ >= 3 && counter_ > 90000){	//Becomes Impossible
 		generateRandomItem();
 		generateRandomItem();	
 	}
@@ -226,7 +234,7 @@ void MainWindow:: handleTimer(){
 	} 
 	
 	
-	if(counter_%20000 == 0 && gameSpeed_ < 3){
+	if(counter_%20000 == 0){
 		cout << "GameSpeed: " << gameSpeed_ << endl;
 		gameSpeed_++;
 	}
