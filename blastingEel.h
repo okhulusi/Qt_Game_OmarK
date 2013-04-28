@@ -6,15 +6,16 @@
 #include "eelBlast.h"
 
 class BlastingEel : public GameItem {
-
+	Q_OBJECT
 	public:
 		BlastingEel(int x, int y, QPixmap *pixmap);
 		~BlastingEel();
 		void act();
-		void attack(int waitTime, int speed, int numBlasts, int blastInterval);
 		void setSpeed(int gameSpeed);
 		string getType();
-		
+	
+	signals:
+		void firing(int, int);
 	private:
 		int counter_;
 		string type_;

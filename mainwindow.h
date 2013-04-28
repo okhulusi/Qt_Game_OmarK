@@ -26,6 +26,7 @@ class MainWindow: public QWidget{
 		void handleStartButton();
 		void handleTimer();
 		void handlePauseButton();
+		void handleEel(int x, int y);
 	
 	private:
 		Player *player;

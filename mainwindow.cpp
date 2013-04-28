@@ -109,6 +109,13 @@ void MainWindow:: handleStartButton(){
 	scene->addItem(clam);
 	itemVec->push_back(clam); 
 	
+	QPixmap *eelPixmap = new QPixmap("./GamePictures/Eel/Eel3.png");
+	*eelPixmap = eelPixmap->scaled(200, 200);
+	BlastingEel *eel = new BlastingEel(450, 100, eelPixmap);
+	connect(eel, SIGNAL(firing(int, int)), this, SLOT(handleEel(int, int)));
+	scene->addItem(eel);
+	itemVec->push_back(eel); 
+	
 	gameStarted = true;
 }
 
@@ -216,12 +223,21 @@ void MainWindow:: controlShark(Shark *shark){
 	}
 }
 
+void MainWindow:: handleEel(int x, int y){
+	QPixmap *blastPixmap1 = new QPixmap("./GamePictures/EelBlast/EelBlast1.png");
+	*blastPixmap1 = blastPixmap1->scaled(50, 50);
+	Blast *blast1 = new Blast(x, y + 85, blastPixmap1);
+	scene->addItem(blast1);
+	itemVec->push_back(blast1); 
+}
 void MainWindow:: controlEel(BlastingEel *eel){
-
+//	if(firing){
+	
+//	}
 }
 
 void MainWindow:: controlEelBlast(Blast *blast){
-
+	
 }
 void MainWindow:: controlMine(FloatingMine *mine){
 
