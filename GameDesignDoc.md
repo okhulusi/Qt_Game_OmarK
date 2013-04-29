@@ -17,31 +17,38 @@ The Layout is depicted in the picture link below:
 #### Object 1: Sharks
 Sharks will wait a couple seconds on the right side of the ocean, and then charge full speed at Lilla, chomping its teeth.  
 They do not change vertical position, so Lilla can dodge them by moving up or down after the charge begins.  
-If Lilla is hit, she will lose a life.
+If Lilla is hit, she will lose a life.  It has no vertical velocity.
 
 ![alt text](./GamePictures/Shark/Shark3.png "Shark")
 
 #### Object 2: Eels
 Eels will wait a couple seconds and then shoot four laser blasts from the right to the left side of the screen that 
-can sear Lilla's scales.  If she is hit, she will lose a life.
+can sear Lilla's scales.  If she is hit, she will lose a life.  Eels are immobile objects.
 
 ![alt text](./GamePictures/Eel/Eel3.png "Eel")
 
-#### Object 3: Floating Mines
+#### Object 3: Eel Blasts
+An Eel blast is a projectile blast fired from the mouth of the eel.  It travels from the right to the left side of the
+screen.  It has no vertical velocity.
+
+![alt text](./GamePictures/EelBlast/EelBlast1.png "Blast")
+
+#### Object 4: Floating Mines
 Floating mines will appear throughout the game in randomized locations, starting on the right side of the ocean.  
 The player can click them with the mouse to detonate them before they reach Lilla or control Lilla to avoid them. 
- The user will be given bonus points upon click-detonating them.
+ The user will be given bonus points upon click-detonating them.  They only detonate from a click, so if Lilla hits one,
+ then she will simply lose a life.  It has no vertical velocity.
 
 ![alt text](./GamePictures/Mine/Mine.png "Floating Mine")
   
-#### Object 4: Bubble Power-Up
+#### Object 5: Bubble Power-Up
 The bubble power up will make Lilla invincible for a short period of time.  It is rare and hard to catch, for it has oscillating,
 fast vertical velocity.  It will surround her for the duration of the effect, but if she moves too fast it will break away 
 from her!
 
 ![alt text](./GamePictures/Bubble/Bubble.png "Bubble")
 
-#### Object 5: Extra Life Power-Up
+#### Object 6: Extra Life Power-Up
 The extra life power-up (a clam) will simply give Lilla an extra life.  These are also rarer and harder to catch, using the
 same moving pattern as the Bubble Power Up, although providing a different mechanic (an extra life) upon collision with Lilla.
 
@@ -53,13 +60,13 @@ will be used to click on mines to destroy them before Lilla reaches them, and th
  sharks, eel blasts, and to receive the bubble and extra life power-ups.
 
 ## Scoring
-The user will be assessed by how long he/she lives. The longer a user lives, the higher the score.  Furthermore, a user can
-gain additional points by receiving either one of the two power-ups.  Also, as mentioned earlier, the user will receive bonus
-points for click-detonating floating mines.  The score can not go down.
+The user will be assessed by how long he/she lives. The longer a user lives, the higher the score.  Furthermore, as mentioned
+ earlier, the user will receive bonus points for click-detonating floating mines.  The score can not go down.
 
 ## Lives
 The user will lose lives by being hit by a shark, an eel blast, or a mine.  Lilla starts with three lives but can gain 
-additional lives via the Extra Life Power-Up.
+additional lives via the Extra Life Power-Up.  Note: When Lilla loses a life, she will flash and be granted 1 second of 
+invincibility so that she doesn't die from multiple attacks at once.
 
 ## Buttons
 ### Start Button
