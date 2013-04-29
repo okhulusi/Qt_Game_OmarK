@@ -137,11 +137,11 @@ void MainWindow:: keyPressEvent(QKeyEvent *e){
 
 void MainWindow:: generateRandomItem(){
 	int random = rand()%50;
-	int randomYSharkLoc = rand()%425;
-	int randomYBubbleLoc = rand()%425;
-	int randomYMineLoc = rand()%425;
-	int randomYClamLoc = rand()%425;
-	int randomYEelLoc = rand()%300;
+	int randomYSharkLoc = rand()%425 - 20;
+	int randomYBubbleLoc = rand()%425 - 20;
+	int randomYMineLoc = rand()%425 - 20;
+	int randomYClamLoc = rand()%425 - 20;
+	int randomYEelLoc = rand()%425 - 20;
 	if(random <= 20){
 		Shark *shark = new Shark(450, randomYSharkLoc, sharkPixmap);
 		scene->addItem(shark);
