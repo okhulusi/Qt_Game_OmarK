@@ -36,7 +36,7 @@ class Background : public GameItem{
 	void act();
 	
 	/**	Return the string of the object, "Background"
-	*	@return strign Background
+	*	@return string Background
 	*/
 	string getType();
 	
