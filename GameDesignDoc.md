@@ -71,11 +71,10 @@ invincibility so that she doesn't die from multiple attacks at once.
 ## Buttons
 ### Start Button
 Starts the game.  Three enemies or power-ups will be generated at the very beginning of the game.  After that, the amount of
-enemies spawned depends on how long the player survives.
+enemies spawned depends on how long the player survives.  If a game is already running, click this will start a new game.
+Thus, this button acts as a start button and a reset button.
 ### Quit Button
 Quits the game.
 ### Pause Button
 Pauses the game.  The user cannot move Lilla while the game is paused.
-### Restart Button
-Restarts the game.
 
