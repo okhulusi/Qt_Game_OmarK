@@ -95,6 +95,29 @@ MainWindow::MainWindow(){
 	setLayout(mainLayout);	
 	mainLayout->addWidget(view, 0, 0, 50, 50);
 	
+	sharkPixmap = new QPixmap("./GamePictures/Shark/Shark3.png");
+	bubblePixmap = new QPixmap("./GamePictures/Bubble/Bubble.png");
+	*bubblePixmap = bubblePixmap->scaled(150, 150);
+	minePixmap = new QPixmap("./GamePictures/Mine/Mine.png");
+	*minePixmap = minePixmap->scaled(100, 100);
+	clamPixmap = new QPixmap("./GamePictures/Clam/Clam.png");
+	*clamPixmap = clamPixmap->scaled(50, 50);
+	eelPixmap = new QPixmap("./GamePictures/Eel/Eel3.png");
+	*eelPixmap = eelPixmap->scaled(200, 200);
+	
+	playerPixmap4 = new QPixmap("./GamePictures/Mermaid/Mermaid4.png");
+	playerPixmap3 = new QPixmap("./GamePictures/Mermaid/Mermaid3.png");
+	playerPixmap2 = new QPixmap("./GamePictures/Mermaid/Mermaid2.png");
+	playerPixmap1 = new QPixmap("./GamePictures/Mermaid/Mermaid5.png");
+	
+	sharkPixmap2 = new QPixmap("./GamePictures/Shark/Shark5");
+	sharkPixmap3 = new QPixmap("./GamePictures/Shark/Shark4");
+	sharkPixmap4 = new QPixmap("./GamePictures/Shark/Shark3");
+	
+	blastPixmap1 = new QPixmap("./GamePictures/EelBlast/EelBlast1.png");
+	*blastPixmap1 = blastPixmap1->scaled(50, 50);
+	
+	
 	setFocus();
 }
 
@@ -112,36 +135,26 @@ void MainWindow:: generateRandomItem(){
 	int randomYClamLoc = rand()%425;
 	int randomYEelLoc = rand()%300;
 	if(random <= 20){
-		QPixmap *sharkPixmap = new QPixmap("./GamePictures/Shark/Shark3.png");
 		Shark *shark = new Shark(450, randomYSharkLoc, sharkPixmap);
 		scene->addItem(shark);
 		itemVec->push_back(shark);
 	} else if(random == 21){
-		QPixmap *bubblePixmap = new QPixmap("./GamePictures/Bubble/Bubble.png");
-		*bubblePixmap = bubblePixmap->scaled(150, 150);
 		BubblePowerUp *bubble = new BubblePowerUp(450, randomYBubbleLoc, bubblePixmap);
 		scene->addItem(bubble);
 		itemVec->push_back(bubble);
 	} else if(random <= 36){
-		QPixmap *minePixmap = new QPixmap("./GamePictures/Mine/Mine.png");
-		*minePixmap = minePixmap->scaled(100, 100);
 		FloatingMine *mine = new FloatingMine(450, randomYMineLoc, minePixmap);
 		mine->setID(mineIDCount_);
 		mineIDCount_++;
 		scene->addItem(mine);
 		itemVec->push_back(mine);
 		mineLocation = itemVec->size()-1;
-		//NOT WORKING
 		connect(mine, SIGNAL(minePressed(FloatingMine*)), this, SLOT(explode(FloatingMine*)));
 	} else if(random == 37){
-		QPixmap *clamPixmap = new QPixmap("./GamePictures/Clam/Clam.png");
-		*clamPixmap = clamPixmap->scaled(50, 50);
 		ClamPowerUp *clam = new ClamPowerUp(400, randomYClamLoc, clamPixmap);
 		scene->addItem(clam);
 		itemVec->push_back(clam); 
 	} else if(random <= 49){
-		QPixmap *eelPixmap = new QPixmap("./GamePictures/Eel/Eel3.png");
-		*eelPixmap = eelPixmap->scaled(200, 200);
 		BlastingEel *eel = new BlastingEel(425, randomYEelLoc, eelPixmap);
 		connect(eel, SIGNAL(firing(int, int)), this, SLOT(handleEel(int, int)));
 		scene->addItem(eel);
@@ -298,16 +311,12 @@ void MainWindow:: handleTimer(){
 void MainWindow:: controlPlayer(Player *player){
 	if(!player->getLostLife()){
 		if(counter_%2000 == 0){
-			QPixmap *playerPixmap4 = new QPixmap("./GamePictures/Mermaid/Mermaid4.png");
 			player->setPixmap(*playerPixmap4);
 		} else if(counter_%1500 == 0){
-			QPixmap *playerPixmap3 = new QPixmap("./GamePictures/Mermaid/Mermaid3.png");
 			player->setPixmap(*playerPixmap3);
 		} else if(counter_%1000 == 0){
-			QPixmap *playerPixmap2 = new QPixmap("./GamePictures/Mermaid/Mermaid2.png");
 			player->setPixmap(*playerPixmap2);
 		} else if(counter_%500 == 0){
-			QPixmap *playerPixmap1 = new QPixmap("./GamePictures/Mermaid/Mermaid5.png");
 			player->setPixmap(*playerPixmap1);
 		}
 	}
@@ -349,14 +358,11 @@ void MainWindow:: controlPlayer(Player *player){
 void MainWindow:: controlShark(Shark *shark){
 	if(shark->isMoving()){
 		if(counter_%300 == 0){
-			QPixmap *sharkPixmap2 = new QPixmap("./GamePictures/Shark/Shark5");
 			shark->setPixmap(*sharkPixmap2);
 		} else if(counter_%200 == 0){
-			QPixmap *sharkPixmap3 = new QPixmap("./GamePictures/Shark/Shark4");
 			shark->setPixmap(*sharkPixmap3);
 		} else if(counter_%100 == 0){
-			QPixmap *sharkPixmap3 = new QPixmap("./GamePictures/Shark/Shark3");
-			shark->setPixmap(*sharkPixmap3);
+			shark->setPixmap(*sharkPixmap4);
 		}
 		
 		if(shark->x() < -1000){
@@ -376,8 +382,6 @@ void MainWindow:: controlShark(Shark *shark){
 }
 
 void MainWindow:: handleEel(int x, int y){
-	QPixmap *blastPixmap1 = new QPixmap("./GamePictures/EelBlast/EelBlast1.png");
-	*blastPixmap1 = blastPixmap1->scaled(50, 50);
 	Blast *blast1 = new Blast(x, y + 85, blastPixmap1);
 	scene->addItem(blast1);
 	itemVec->push_back(blast1); 

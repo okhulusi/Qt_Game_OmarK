@@ -70,7 +70,7 @@ class MainWindow: public QWidget{
 		QPixmap *backgroundPixmap;
 		Background *background;
 		Background *background2;
-		
+
 		QVBoxLayout *startMenuLayout;
 		QLabel *nameLabel;
 		QLineEdit *nameField;
@@ -81,6 +81,23 @@ class MainWindow: public QWidget{
 		QPlastiqueStyle *style;
 		QGraphicsScene *scene;
 		QGraphicsView *view;
+
+		QPixmap *sharkPixmap;
+		QPixmap *bubblePixmap;
+		QPixmap *minePixmap;
+		QPixmap *clamPixmap;
+		QPixmap *eelPixmap;
+		
+		QPixmap *playerPixmap4;
+		QPixmap *playerPixmap3;
+		QPixmap *playerPixmap2;
+		QPixmap *playerPixmap1;
+		
+		QPixmap *sharkPixmap2;
+		QPixmap *sharkPixmap3;
+		QPixmap *sharkPixmap4;
+		
+		QPixmap *blastPixmap1;
 
 };
 #endif
