@@ -78,3 +78,7 @@ Quits the game.
 ### Pause Button
 Pauses the game.  The user cannot move Lilla while the game is paused.
 
+## Picture Information
+Pictures were found at the following website: http://www.spritedatabase.net. I do not claim any rights or ownership
+to these photos.
+
