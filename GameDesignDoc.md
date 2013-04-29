@@ -11,7 +11,7 @@ survives, so prepare for an increase in difficulty as time goes on.
 
 ##Layout
 The Layout is depicted in the picture link below:
-![alt text](GamePictures/Layout.jpeg "Game Layout")
+![alt text](./GamePictures/Layout.png "Game Layout")
 
 ## In Game Objects
 #### Object 1: Sharks
