@@ -117,6 +117,14 @@ MainWindow::MainWindow(){
 	blastPixmap1 = new QPixmap("./GamePictures/EelBlast/EelBlast1.png");
 	*blastPixmap1 = blastPixmap1->scaled(50, 50);
 	
+	expPixmap10 = new QPixmap("./GamePictures/MineExplosion/Explosion10.png");
+	expPixmap9 = new QPixmap("./GamePictures/MineExplosion/Explosion9.png");
+	expPixmap8 = new QPixmap("./GamePictures/MineExplosion/Explosion8.png");
+	expPixmap7 = new QPixmap("./GamePictures/MineExplosion/Explosion7.png");
+	expPixmap6 = new QPixmap("./GamePictures/MineExplosion/Explosion6.png");
+	expPixmap5 = new QPixmap("./GamePictures/MineExplosion/Explosion5.png");
+	expPixmap4 = new QPixmap("./GamePictures/MineExplosion/Explosion4.png");
+	expPixmap3 = new QPixmap("./GamePictures/MineExplosion/Explosion3.png");
 	
 	setFocus();
 }
@@ -404,30 +412,22 @@ void MainWindow:: controlEelBlast(Blast *blast, int loc){
 
 void MainWindow:: explode(FloatingMine *mine){
 	if(mine->isReadyToExplode()){
-		if(counter_%800 == 0){
-			QPixmap *expPixmap10 = new QPixmap("./GamePictures/MineExplosion/Explosion10.png");
+		if(counter_%400 == 0){
 			mine->setPixmap(*expPixmap10);
 			mine->setIsDoneExploding(true);
-		} else if(counter_%700 == 0){
-			QPixmap *expPixmap9 = new QPixmap("./GamePictures/MineExplosion/Explosion9.png");
+		} else if(counter_%350 == 0){
 			mine->setPixmap(*expPixmap9);
-		} else if(counter_%600 == 0){
-			QPixmap *expPixmap8 = new QPixmap("./GamePictures/MineExplosion/Explosion8.png");
-			mine->setPixmap(*expPixmap8);
-		} else if(counter_%500 == 0){
-			QPixmap *expPixmap7 = new QPixmap("./GamePictures/MineExplosion/Explosion7.png");
-			mine->setPixmap(*expPixmap7);
-		} else if(counter_%400 == 0){
-			QPixmap *expPixmap6 = new QPixmap("./GamePictures/MineExplosion/Explosion6.png");
-			mine->setPixmap(*expPixmap6);
 		} else if(counter_%300 == 0){
-			QPixmap *expPixmap5 = new QPixmap("./GamePictures/MineExplosion/Explosion5.png");
-			mine->setPixmap(*expPixmap5);
+			mine->setPixmap(*expPixmap8);
+		} else if(counter_%250 == 0){
+			mine->setPixmap(*expPixmap7);
 		} else if(counter_%200 == 0){
-			QPixmap *expPixmap4 = new QPixmap("./GamePictures/MineExplosion/Explosion4.png");
-			mine->setPixmap(*expPixmap4);
+			mine->setPixmap(*expPixmap6);
+		} else if(counter_%150 == 0){
+			mine->setPixmap(*expPixmap5);
 		} else if(counter_%100 == 0){
-			QPixmap *expPixmap3 = new QPixmap("./GamePictures/MineExplosion/Explosion3.png");
+			mine->setPixmap(*expPixmap4);
+		} else if(counter_%50 == 0){
 			mine->setPixmap(*expPixmap3);
 		}
 	}

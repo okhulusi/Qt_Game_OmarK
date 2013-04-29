@@ -98,6 +98,15 @@ class MainWindow: public QWidget{
 		QPixmap *sharkPixmap4;
 		
 		QPixmap *blastPixmap1;
+		
+		QPixmap *expPixmap10;
+		QPixmap *expPixmap9;
+		QPixmap *expPixmap8;
+		QPixmap *expPixmap7;
+		QPixmap *expPixmap6;
+		QPixmap *expPixmap5;
+		QPixmap *expPixmap4;
+		QPixmap *expPixmap3;
 
 };
 #endif
