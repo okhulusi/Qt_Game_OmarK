@@ -28,7 +28,7 @@ int Player:: getLives(){
 
 void Player:: bubbleTime(){
 	if(invincible_ == false){
-	cout << "BUBBLE TIME" << endl;
+//	cout << "BUBBLE TIME" << endl;
 		bubbleInvincibility_ = true;
 		startInvincibility();
 	}
