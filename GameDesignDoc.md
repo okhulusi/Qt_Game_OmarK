@@ -9,6 +9,15 @@ avoid a path of dangerous obstacles and use the powers of the sea to gain lives 
 player survives, the higher the score he/she receives.  The sea monsters will get more and more upset the longer she 
 survives, so prepare for an increase in difficulty as time goes on.
 
+## Levels
+The evil creatures of the sea grow stronger as time goes on.  There are three levels of difficulty.
+1. The creatures are relatively weak.  Lilla is still at a slow pace and can dodge enemies easily.
+2. The creatures spawn twice as often as in level 1.  Lilla is moving at a faster pace, and may run into some trouble.
+3. Lilla and the creatures enter hydro superdrive, where creatures spawn 3 times as often as level 1, sharks, bubbles,
+and clams move much faster, and Eels shoot seven blasts instead of four.  Further, every twenty seconds that Lilla survives
+in level 3, the creatures continue to spawn and move faster. The creatures described are explained below.  A red flash occurs
+when the difficulty increases any time in level 3.
+
 ##Layout
 The Layout is depicted in the picture link below:
 ![alt text](./GamePictures/Layout.png "Game Layout")
