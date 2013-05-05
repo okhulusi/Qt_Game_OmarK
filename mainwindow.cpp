@@ -150,6 +150,11 @@ MainWindow::MainWindow(){
 	expPixmap4 = new QPixmap("./GamePictures/MineExplosion/Explosion4.png");
 	expPixmap3 = new QPixmap("./GamePictures/MineExplosion/Explosion3.png");
 	
+	backgroundPixmap2 = new QPixmap("./GamePictures/Background2.png");
+	*backgroundPixmap2 = backgroundPixmap2->scaled(500, 500);
+	backgroundPixmap3 = new QPixmap("./GamePictures/Background3.png");
+	*backgroundPixmap3 = backgroundPixmap3->scaled(500, 500);
+	
 	setFocus();
 }
 
@@ -313,6 +318,14 @@ void MainWindow:: handleTimer(){
 	if(counter_%20000 == 0){
 		//cout << "GameSpeed: " << gameSpeed_ << endl;
 		gameSpeed_++;
+		
+		if(gameSpeed_ == 2){
+			background->setPixmap(*backgroundPixmap2);
+			background2->setPixmap(*backgroundPixmap2);
+		} else if(gameSpeed_ == 3){
+			background->setPixmap(*backgroundPixmap3);
+			background2->setPixmap(*backgroundPixmap3);
+		}
 		levelLabel->setText(QString::number(gameSpeed_));
 	}
 	for(unsigned int i = 0; i < itemVec->size(); i++){

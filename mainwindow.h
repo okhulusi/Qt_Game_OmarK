@@ -171,6 +171,9 @@ class MainWindow: public QWidget{
 		QPixmap *expPixmap5;
 		QPixmap *expPixmap4;
 		QPixmap *expPixmap3;
+		
+		QPixmap *backgroundPixmap2;
+		QPixmap *backgroundPixmap3;
 
 };
 #endif
