@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <cmath>
+#include <fstream>
 
 using namespace std;
 
@@ -36,16 +37,34 @@ MainWindow::MainWindow(){
 	scene = new QGraphicsScene(0, 0, 500, 500);
 	view = new QGraphicsView(scene);
 	
-	mainLayout->addWidget(scoreLabel, 10, 50, 10, 10);
-	mainLayout->addWidget(scoreBox, 15, 50, 10, 10);
-	mainLayout->addWidget(levelDisplay, 30, 50, 10, 10);
-	mainLayout->addWidget(levelLabel, 35, 50, 10, 10);
+	mainLayout->addWidget(scoreLabel, 9, 50, 10, 10);
+	mainLayout->addWidget(scoreBox, 11, 50, 10, 10);
+	mainLayout->addWidget(levelDisplay, 25, 50, 10, 10);
+	mainLayout->addWidget(levelLabel, 30, 50, 10, 10);
+	
+	//High Score
+	highScoreLabel = new QLabel("High Scores:");
+	highScoreBox = new QTextEdit();
+	highScoreBox->setReadOnly(true);
+	mainLayout->addWidget(highScoreLabel, 40, 50, 5, 5);
+	mainLayout->addWidget(highScoreBox, 47, 50, 5, 5);
+	
+	ifstream ifile("scoreList.txt");			//Extra Credit Scoreboard
+	if(ifile){
+		while(ifile.good()){
+			string lineString;
+			getline(ifile, lineString);
+			
+			QString qstr(QString::fromStdString(lineString));
+			highScoreBox->append(qstr);
+		}
+	}
 	
 	numLivesLabel = new QLabel("Number of Lives: ");
 	livesLabel = new QLabel();
 	livesLabel->setText(QString::number(3));
-	mainLayout->addWidget(numLivesLabel, 20, 50, 10, 10);
-	mainLayout->addWidget(livesLabel, 25, 50, 10, 10);
+	mainLayout->addWidget(numLivesLabel, 15, 50, 10, 10);
+	mainLayout->addWidget(livesLabel, 20, 50, 10, 10);
 	
 	view->setFixedSize(505, 505);
 	view->setWindowTitle("Under the Deep Blue Sea");
@@ -77,7 +96,7 @@ MainWindow::MainWindow(){
 	//Quit Button
 	quitButton = new QPushButton();
 	quitButton->setText("Quit Game");
-	connect(quitButton, SIGNAL(clicked()), qApp, SLOT(quit()));
+	connect(quitButton, SIGNAL(clicked()), this, SLOT(handleQuitButton()));
 	startMenuLayout->addWidget(quitButton);
 	
 	//background
@@ -330,10 +349,12 @@ void MainWindow:: controlPlayer(Player *player){
 	}
 		for(unsigned int i = 0; i < itemVec->size(); i++){
 			if(player->isDead()){
+			highScoreBox->append(nameField->text() + ": " + QString::number(score_));
 			timer->stop();
 			score_ = 0;
 			displayGameOver();
-		}
+			break;
+			}
 		
 		if((*itemVec)[i]->getType() != "Background" && player->collidesWithItem((*itemVec)[i])){
 			if((*itemVec)[i]->getType() == "Bubble"){
@@ -474,4 +495,11 @@ void MainWindow:: deleteBubble(){
 		}
 		loc++;
 	}
+}
+
+void MainWindow:: handleQuitButton(){
+	ofstream ofile("scoreList.txt");
+	QString str = highScoreBox->toPlainText();
+	ofile << str.toStdString();
+	qApp->quit();
 }

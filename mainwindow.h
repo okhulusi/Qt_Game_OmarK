@@ -12,6 +12,7 @@
 #include "background.h"
 #include "player.h"
 #include <QString>
+#include <string>
 
 /** The main window is the base class where everything connects.  It also keeps track of spawning, so it controls the view.
 *	@author Omar Khulusi
@@ -82,6 +83,11 @@ class MainWindow: public QWidget{
 		*	@return nothing
 		*/
 		void generateRandomItem();
+		
+		/** Handles quit button.  High score list is output to a txt file, then the application is quit.
+		*   @return nothing
+		*/
+		void handleQuitButton();
 	
 	private:
 		int mineLocation;
@@ -112,6 +118,9 @@ class MainWindow: public QWidget{
 		QLabel *scoreBox;
 		QLabel *levelLabel;
 		QLabel *levelDisplay;
+		
+		QLabel *highScoreLabel;
+		QTextEdit *highScoreBox;
 		
 		QLabel *livesLabel;
 		QLabel *numLivesLabel;
