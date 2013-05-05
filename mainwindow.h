@@ -119,6 +119,10 @@ class MainWindow: public QWidget{
 		QLabel *levelLabel;
 		QLabel *levelDisplay;
 		
+		int highScore1;
+		int highScore2;
+		int highScore3;
+		
 		QLabel *highScoreLabel;
 		QTextEdit *highScoreBox;
 		

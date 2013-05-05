@@ -11,6 +11,10 @@ MainWindow::~MainWindow(){
 }
 
 MainWindow::MainWindow(){
+	highScore1 = 0;
+	highScore2 = 0;
+	highScore3 = 0;
+	
 	srand(time(NULL));
 	
 	setWindowTitle("Under The Deep Blue Sea");
@@ -54,6 +58,7 @@ MainWindow::MainWindow(){
 		while(ifile.good()){
 			string lineString;
 			getline(ifile, lineString);
+		//	lineString.substr(
 			
 			QString qstr(QString::fromStdString(lineString));
 			highScoreBox->append(qstr);
