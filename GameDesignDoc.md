@@ -89,7 +89,9 @@ Pauses the game.  The user cannot move Lilla while the game is paused.
 ### High Score Box
 Keeps track of the three highest scorers of the game.  Upon quitting, high scores are exported to a text file and read back in
 upon opening the game again.  If no high scores have been made yet, the three highest scorers are set to "Nobody" with a score of 0.
-Further, a new text file is made if it hasn't been already.
+Further, a new text file is made if it hasn't been already.  The score list file is named scoreList.txt.  An example score
+holding file named example-scoreList.txt has been included for reference.
+
 ## Picture Information
 Pictures were found at the following website: http://www.spritedatabase.net. I do not claim any rights or ownership
 to these photos.
