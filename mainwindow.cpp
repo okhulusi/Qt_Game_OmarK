@@ -58,11 +58,27 @@ MainWindow::MainWindow(){
 		while(ifile.good()){
 			string lineString;
 			getline(ifile, lineString);
-		//	lineString.substr(
+			int userTempScore = atoi(lineString.substr(lineString.find_last_of(' '), lineString.length()-lineString.find_last_of(' ')).c_str());
+	
+			if(userTempScore > highScore1){
+				highScore1 = userTempScore;
+			} else if(userTempScore > highScore2){
+				highScore2 = userTempScore;
+			} else if(userTempScore > highScore3){
+				highScore3 = userTempScore;
+			} else {}
 			
+			highScoreNameAndNumberList.push_back(lineString);
 			QString qstr(QString::fromStdString(lineString));
 			highScoreBox->append(qstr);
 		}
+	} else{
+		highScoreBox->append("Nobody: 0");
+		highScoreBox->append("Nobody: 0");
+		highScoreBox->append("Nobody: 0");
+		highScoreNameAndNumberList.push_back("Nobody: 0");
+		highScoreNameAndNumberList.push_back("Nobody: 0");
+		highScoreNameAndNumberList.push_back("Nobody: 0");
 	}
 	
 	numLivesLabel = new QLabel("Number of Lives: ");
@@ -222,6 +238,8 @@ void MainWindow:: handleStartButton(){
 			gameStarted = true;
 		}
 	} else{
+		background->setPixmap(*backgroundPixmap);
+		background2->setPixmap(*backgroundPixmap);
 		gamePaused = false;
 		score_ = 0;
 		gameSpeed_ = 1;
@@ -367,9 +385,46 @@ void MainWindow:: controlPlayer(Player *player){
 	}
 		for(unsigned int i = 0; i < itemVec->size(); i++){
 			if(player->isDead()){
-			highScoreBox->append(nameField->text() + ": " + QString::number(score_));
+				if(score_ >= highScore1){
+					highScore3 = highScore2;
+					highScore2 = highScore1;
+					highScore1 = score_;
+					//cout << "Highest Score" << endl;
+					highScoreBox->clear();
+					
+					highScoreNameAndNumberList[2] = highScoreNameAndNumberList[1];
+					highScoreNameAndNumberList[1] = highScoreNameAndNumberList[0];
+					
+					highScoreBox->append(nameField->text() + ": " + QString::number(score_));
+					highScoreNameAndNumberList[0] = (nameField->text() + ": " + QString::number(score_)).toStdString();
+					
+					highScoreBox->append(QString::fromStdString(highScoreNameAndNumberList[1]));
+					highScoreBox->append(QString::fromStdString(highScoreNameAndNumberList[2]));
+				} else if(score_>= highScore2){
+					highScore3 = highScore2;
+					highScore2 = score_;
+					//cout << "Second Highest Score" << endl;
+					highScoreBox->clear();
+					
+					highScoreNameAndNumberList[2] = highScoreNameAndNumberList[1];
+					
+					highScoreBox->append(QString::fromStdString(highScoreNameAndNumberList[0]));
+					highScoreBox->append(nameField->text() + ": " + QString::number(score_));
+					highScoreNameAndNumberList[1] = (nameField->text() + ": " + QString::number(score_)).toStdString();
+					highScoreBox->append(QString::fromStdString(highScoreNameAndNumberList[2]));
+				} else if(score_>= highScore3){
+					highScore3 = score_;
+					//cout << "Third Highest Score" << endl;
+					highScoreBox->clear();
+					
+					highScoreBox->append(QString::fromStdString(highScoreNameAndNumberList[0]));
+					highScoreBox->append(QString::fromStdString(highScoreNameAndNumberList[1]));
+					highScoreBox->append(nameField->text() + ": " + QString::number(score_));
+					highScoreNameAndNumberList[2] = (nameField->text() + ": " + QString::number(score_)).toStdString();
+				} else {}
 			timer->stop();
 			score_ = 0;
+			counter_ = 0;
 			displayGameOver();
 			break;
 			}
