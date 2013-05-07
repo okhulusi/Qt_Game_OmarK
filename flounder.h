@@ -51,6 +51,7 @@ class Flounder : public GameItem{
 	private:
 		int counter_;
 		bool moving_;
+		double newvy_;
 		int yDistToMove_;
 		Player *player_;
 		
