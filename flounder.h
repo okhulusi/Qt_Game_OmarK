@@ -19,7 +19,8 @@ class Flounder : public GameItem{
 		*	Also takes a pointer to the player.
 		*	@param x X location
 		*	@param y Y Location
-		*	@param pixmap Pointer to the pixmap containing shark image	
+		*	@param pixmap Pointer to the pixmap containing flounder image	
+		*	@param player Pointer to the player for AI
 		*/
 		Flounder(int x, int y, QPixmap *pixmap, Player *player);
 		

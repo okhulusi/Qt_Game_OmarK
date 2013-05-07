@@ -212,7 +212,7 @@ void MainWindow:: generateRandomItem(){
 		mineLocation = itemVec->size()-1;
 		connect(mine, SIGNAL(minePressed(FloatingMine*)), this, SLOT(explode(FloatingMine*)));
 	} else if(random == 37){
-		ClamPowerUp *clam = new ClamPowerUp(400, randomYClamLoc, clamPixmap);
+		ClamPowerUp *clam = new ClamPowerUp(400, randomYClamLoc, clamPixmap, player);
 		scene->addItem(clam);
 		itemVec->push_back(clam); 
 	} else if(random <= 49){

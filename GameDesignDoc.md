@@ -57,9 +57,10 @@ from her!
 
 ![alt text](./GamePictures/Bubble/Bubble.png "Bubble")
 
-#### Object 6: Extra Life Power-Up
-The extra life power-up (a clam) will simply give Lilla an extra life.  These are also rarer and harder to catch, using the
-same moving pattern as the Bubble Power Up, although providing a different mechanic (an extra life) upon collision with Lilla.
+#### Object 6 (Artificial Intelligence Object): Extra Life Power-Up
+The extra life power-up (a clam) will simply give Lilla an extra life.  These are also rarer and harder to catch, quickly
+launching towards Lilla's current position, although providing a very useful mechanic (an extra life) upon collision with 
+Lilla.
 
 ![alt text](./GamePictures/Clam/Clam.png "Clam")
 
