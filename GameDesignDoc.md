@@ -63,6 +63,12 @@ same moving pattern as the Bubble Power Up, although providing a different mecha
 
 ![alt text](./GamePictures/Clam/Clam.png "Clam")
 
+#### Object 7 (Artificial Intelligence Object): Flounder the Fish
+Flounder the fish will give Lilla 30 points upon contact.  Flounder tracks the location of Lilla and launches towards her.
+Thus, Lilla will not catch Flounder if she moves away from her position as of when Flounder appeared.
+
+![alt text](./GamePictures/Flounder/Flounder.png "Flounder")
+
 ## Game Play
 The user uses his/her mouse to play this game, as well as using the W (move up) and S (move down) arrow keys.  The mouse 
 will be used to click on mines to destroy them before Lilla reaches them, and the W and S keys will be used to dodge the
