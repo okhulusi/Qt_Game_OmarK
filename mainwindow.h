@@ -11,6 +11,7 @@
 #include "floatingMine.h"
 #include "background.h"
 #include "player.h"
+#include "flounder.h"
 #include <QString>
 #include <string>
 
@@ -105,6 +106,8 @@ class MainWindow: public QWidget{
 		void incrementScore(int);
 		void controlPlayer(Player *player);
 		void controlShark(Shark *shark);
+		void controlFlounder(Flounder *flounder);
+		void deleteFlounder(Flounder *flounder);
 		void controlEel(BlastingEel *eel, int loc);
 		void controlEelBlast(Blast *blast, int loc);
 		void controlClam(ClamPowerUp *clam, int loc);
@@ -175,6 +178,8 @@ class MainWindow: public QWidget{
 		
 		QPixmap *backgroundPixmap2;
 		QPixmap *backgroundPixmap3;
+		
+		QPixmap *flounderPixmap;
 
 };
 #endif

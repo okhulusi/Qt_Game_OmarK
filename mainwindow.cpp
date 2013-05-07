@@ -171,6 +171,9 @@ MainWindow::MainWindow(){
 	backgroundPixmap3 = new QPixmap("./GamePictures/Background3.png");
 	*backgroundPixmap3 = backgroundPixmap3->scaled(500, 500);
 	
+	flounderPixmap = new QPixmap("./GamePictures/Flounder/Flounder.png");
+	*flounderPixmap = flounderPixmap->scaled(50, 50);
+	
 	setFocus();
 }
 
@@ -183,6 +186,7 @@ void MainWindow:: keyPressEvent(QKeyEvent *e){
 void MainWindow:: generateRandomItem(){
 	int random = rand()%50;
 	int randomYSharkLoc = rand()%425 - 20;
+	int randomYFlounderLoc = rand()%425 - 20;
 	int randomYBubbleLoc = rand()%425 - 20;
 	int randomYMineLoc = rand()%425 - 20;
 	int randomYClamLoc = rand()%425 - 20;
@@ -191,7 +195,11 @@ void MainWindow:: generateRandomItem(){
 		Shark *shark = new Shark(450, randomYSharkLoc, sharkPixmap);
 		scene->addItem(shark);
 		itemVec->push_back(shark);
-	} else if(random == 21){
+	} else if(random <= 25){
+		Flounder *flounder = new Flounder(450, randomYFlounderLoc, flounderPixmap, player);
+		scene->addItem(flounder);
+		itemVec->push_back(flounder);
+	} else if(random == 26){
 		BubblePowerUp *bubble = new BubblePowerUp(450, randomYBubbleLoc, bubblePixmap);
 		scene->addItem(bubble);
 		itemVec->push_back(bubble);
@@ -356,6 +364,8 @@ void MainWindow:: handleTimer(){
 			controlPlayer(dynamic_cast<Player*>((*itemVec)[i]));
 		} else if(s == "Shark"){
 			controlShark(dynamic_cast<Shark*>((*itemVec)[i]));
+		} else if(s == "Flounder"){
+			controlFlounder(dynamic_cast<Flounder*>((*itemVec)[i]));
 		} else if(s == "BlastingEel"){
 			controlEel(dynamic_cast<BlastingEel*>((*itemVec)[i]), i);
 		} else if (s == "Blast"){
@@ -439,6 +449,9 @@ void MainWindow:: controlPlayer(Player *player){
 					player->startInvincibility();
 					player->loseLife();
 				}
+			} else if((*itemVec)[i]->getType() == "Flounder"){
+				score_+=30;
+				deleteFlounder(dynamic_cast<Flounder*>((*itemVec)[i]));
 			} else if((*itemVec)[i]->getType() == "Blast"){
 				if(!(player->isInvincible())){
 					player->startInvincibility();
@@ -480,6 +493,38 @@ void MainWindow:: controlShark(Shark *shark){
 			}
 				
 		}
+	}
+}
+
+void MainWindow:: controlFlounder(Flounder *flounder){
+	if(flounder->isMoving()){
+		if(flounder->x() < -1000){
+			unsigned int loc = 0;
+			while(loc < itemVec->size()){
+				if(itemVec->at(loc)->getType() == "Flounder"){
+					GameItem *temp = itemVec->at(loc);
+					itemVec->erase(itemVec->begin() + loc);
+					delete temp;
+					return;
+				}
+				loc++;
+			}
+				
+		}
+	}
+}
+
+void MainWindow:: deleteFlounder(Flounder *flounder){
+	flounder = flounder;
+	unsigned int loc = 0;
+	while(loc < itemVec->size()){
+		if(itemVec->at(loc)->getType() == "Flounder"){
+			GameItem *temp = itemVec->at(loc);
+			itemVec->erase(itemVec->begin() + loc);
+			delete temp;
+			return;
+		}
+		loc++;
 	}
 }
 
