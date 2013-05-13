@@ -21,5 +21,5 @@ The user should use the following procedure to compile and run the code:
 	doxygen -g config.txt
 	doxygen config.txt
 #Command to run
-	./Qt_Game_OmarKhulusi
+	./Qt_Game_OmarK
 ```
