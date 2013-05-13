@@ -1,6 +1,6 @@
 This content is released under the MIT License (MIT)
 
-Copyright (c) <2013> <Omar Khulusi>
+Copyright (c) 2013 by Omar Khulusi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (Under The Deep Blue Sea), to deal
