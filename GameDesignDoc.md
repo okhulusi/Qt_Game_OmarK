@@ -100,6 +100,6 @@ Further, a new text file is made if it hasn't been already.  The score list file
 holding file named example-scoreList.txt has been included for reference.
 
 ## Picture Information
-Pictures were found at the following website: http://www.spritedatabase.net. I do not claim any rights or ownership
-to these photos.
+Sprites were found at the following website: http://www.spritedatabase.net. I do not claim any rights or ownership
+to any photos used in this project.
 
