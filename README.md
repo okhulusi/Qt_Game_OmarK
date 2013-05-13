@@ -11,7 +11,7 @@
 
 
 ### Compile & Run Instructions
-The grader should use the following procedure to compile and run the code:
+The user should use the following procedure to compile and run the code:
 ```shell
 #Compile Instructions
 	qmake -project
@@ -21,5 +21,5 @@ The grader should use the following procedure to compile and run the code:
 	doxygen -g config.txt
 	doxygen config.txt
 #Command to run
-	./game_okhulusi
+	./Qt_Game_OmarKhulusi
 ```
