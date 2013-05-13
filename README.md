@@ -1,4 +1,4 @@
-# Game - Programming Assignments Private Repository
+# Game - Programming Assignment Public Repository
 ### Student Information
   + Name: Omar Khulusi
   + USC Email: okhulusi@usc.edu
